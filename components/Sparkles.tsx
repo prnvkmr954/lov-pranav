@@ -1,121 +1,134 @@
-// /mnt/data/Sparkles.tsx
+// components/Sparkles.tsx
 'use client'
-import { useEffect } from 'react'
+
+import { useEffect } from "react"
+
 
 export default function Sparkles() {
   useEffect(() => {
     // Respect reduced motion
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    const hero = document.querySelector('.hero-hero') as HTMLElement | null
-    if (!hero) return
-
-    // Create or reuse overlay BUT append to hero (so it stays above hero background pseudo)
-    let overlay = hero.querySelector('.hero-sparkles-fixed') as HTMLElement | null
+    // Create a fixed overlay that covers the entire viewport
+    let overlay = document.querySelector('.global-sparkles-overlay') as HTMLElement | null
     if (!overlay) {
       overlay = document.createElement('div')
-      overlay.className = 'hero-sparkles-fixed'
-      // positioned absolute relative to hero (hero must be position: relative)
-      overlay.style.position = 'absolute'
+      overlay.className = 'global-sparkles-overlay'
+      overlay.style.position = 'fixed'
       overlay.style.left = '0'
       overlay.style.top = '0'
-      overlay.style.width = '100%'
-      overlay.style.height = '100%'
+      overlay.style.width = '100vw'
+      overlay.style.height = '100vh'
       overlay.style.pointerEvents = 'none'
-      // ensure stacking — keep this relatively above background but below card (adjust if needed)
-      overlay.style.zIndex = '40'
-      hero.appendChild(overlay)
+      overlay.style.zIndex = '9999'
+      overlay.style.overflow = 'hidden'
+      document.body.appendChild(overlay)
     }
 
-    // CONFIG: tweak to control speed/frequency/drift
+    // CONFIG: slower speed and continuous spawning
     const CONFIG = {
-      spawnBase: 9000,
-      spawnRandom: 14000,
-      fallBase: 7000,
-      fallRandom: 4000,
-      driftMax: 40,
-      scaleMin: 0.88,
-      scaleMax: 1.04,
-      lifespanMs: 120000,
+      spawnBase: 1500,      // Spawn every 1.5-3.5 seconds (slower)
+      spawnRandom: 2000,
+      fallBase: 15000,      // 15-22 seconds to fall (much slower)
+      fallRandom: 7000,
+      driftMax: 60,         // More horizontal drift
+      scaleMin: 0.7,
+      scaleMax: 1.2,
     }
 
-    // Update overlay bounds (overlay is sized to hero by CSS/inline styles already)
-        function updateOverlay() {
-          // ensure hero and overlay are still present before measuring
-          if (!hero || !overlay) return
-    
-          // overlay is inside hero and uses width/height 100%, so no left/top calculation needed.
-          // But if you want to reposition children based on hero rect, compute rect:
-          const r = hero.getBoundingClientRect()
-          overlay.style.width = `${r.width}px`
-          overlay.style.height = `${r.height}px`
-        }
-        updateOverlay()
-
-    let resizeTimer: number | undefined
-    const onResize = () => {
-      clearTimeout(resizeTimer)
-      resizeTimer = window.setTimeout(updateOverlay, 80)
-    }
-    window.addEventListener('resize', onResize)
-    window.addEventListener('scroll', updateOverlay, { passive: true })
-
-    const symbols = ['♥', '❄', '♡', '❅']
+    const symbols = ['♥', '❄', '♡', '❅', '✨', '⭐']
     let running = true
-    let spawnTimer: number | undefined
 
     function createSparkle() {
       if (!overlay || !running) return
 
       const el = document.createElement('div')
       const sym = symbols[Math.floor(Math.random() * symbols.length)]
-      el.className = 'hero-sparkle ' + ((sym === '♥' || sym === '♡') ? 'heart' : 'snow')
+      el.className = 'global-sparkle'
+      
+      // Different classes for different symbols
+      if (sym === '♥' || sym === '♡') {
+        el.classList.add('heart')
+      } else if (sym === '❄' || sym === '❅') {
+        el.classList.add('snow')
+      } else {
+        el.classList.add('star')
+      }
+      
       el.textContent = sym
 
-      const w = overlay.clientWidth || 300
-      const h = overlay.clientHeight || 200
+      const w = window.innerWidth
+      const h = window.innerHeight
 
-      const x = Math.round(8 + Math.random() * Math.max(0, w - 16))
-      const startY = Math.round(h * (0.03 + Math.random() * 0.18))
+      // Start from top, random X position
+      const x = Math.round(Math.random() * w)
+      const startY = -50 // Start above viewport
 
       el.style.position = 'absolute'
       el.style.left = `${x}px`
       el.style.top = `${startY}px`
+      el.style.fontSize = '18px'
+      el.style.lineHeight = '1'
+      el.style.opacity = '0.85'
+      el.style.textShadow = '0 1px 2px rgba(255,255,255,0.6)'
+      el.style.willChange = 'transform, opacity'
 
       const dur = CONFIG.fallBase + Math.random() * CONFIG.fallRandom
       const drift = (Math.random() - 0.5) * (CONFIG.driftMax * 2)
       const scale = CONFIG.scaleMin + Math.random() * (CONFIG.scaleMax - CONFIG.scaleMin)
+      const rotation = Math.random() * 360
 
-      el.style.transform = `translateX(${drift}px) scale(${scale})`
-      el.style.animation = `sparkleFallOverlay ${Math.round(dur)}ms cubic-bezier(.2,.7,.2,1) forwards`
-      el.style.opacity = '0.98'
+      // Create keyframes animation
+      const keyframes = [
+        { 
+          transform: `translateX(0px) translateY(0px) scale(${scale}) rotate(0deg)`,
+          opacity: 0 
+        },
+        { 
+          transform: `translateX(${drift * 0.3}px) translateY(${h * 0.2}px) scale(${scale}) rotate(${rotation * 0.3}deg)`,
+          opacity: 0.85,
+          offset: 0.15
+        },
+        { 
+          transform: `translateX(${drift * 0.7}px) translateY(${h * 0.7}px) scale(${scale * 0.95}) rotate(${rotation * 0.7}deg)`,
+          opacity: 0.8,
+          offset: 0.7
+        },
+        { 
+          transform: `translateX(${drift}px) translateY(${h + 50}px) scale(${scale * 0.8}) rotate(${rotation}deg)`,
+          opacity: 0 
+        }
+      ]
+
+      const animation = el.animate(keyframes, {
+        duration: dur,
+        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        fill: 'forwards'
+      })
 
       overlay.appendChild(el)
 
-      window.setTimeout(() => {
+      animation.onfinish = () => {
         try { el.remove() } catch (e) {}
-      }, dur + 120)
-
-      return dur
+      }
     }
 
     function spawnLoop() {
       if (!running) return
       createSparkle()
       const next = CONFIG.spawnBase + Math.random() * CONFIG.spawnRandom
-      spawnTimer = window.setTimeout(spawnLoop, Math.round(next))
+      setTimeout(spawnLoop, Math.round(next))
     }
 
+    // Start spawning
     spawnLoop()
-    const stopTimer = window.setTimeout(() => { running = false }, CONFIG.lifespanMs)
 
+    // Cleanup function
     return () => {
       running = false
-      if (spawnTimer) clearTimeout(spawnTimer)
-      if (stopTimer) clearTimeout(stopTimer)
-      try { overlay && overlay.remove() } catch (e) {}
-      window.removeEventListener('resize', onResize)
-      window.removeEventListener('scroll', updateOverlay)
+      if (overlay && overlay.parentNode) {
+        overlay.remove()
+      }
     }
   }, [])
 

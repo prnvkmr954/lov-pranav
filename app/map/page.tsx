@@ -1,15 +1,22 @@
 // app/map/page.tsx
 'use client'
 import dynamic from 'next/dynamic'
+
 const MapClient = dynamic(() => import('../../components/MapClient'), { ssr: false })
 
 export default function MapPage() {
   return (
-    <main>
-      <section className="container">
-        <h1>Map of Memories</h1>
+    <main className="map-page">
+      <div className="map-header">
+        <h1 className="map-title">Map of Our Memories</h1>
+        <p className="map-subtitle">
+          Every place holds a special memory in our hearts ♥
+        </p>
+      </div>
+      
+      <div className="heart-map-container">
         <MapClient />
-      </section>
+      </div>
     </main>
   )
 }
