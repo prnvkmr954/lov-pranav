@@ -82,12 +82,7 @@ body.sidebar-collapsed .sidebar-toggle-fixed{
 .hamburger.is-open::after{ transform: rotate(-45deg) }
 
 /* Main content */
-.main-content{
-  margin-left: var(--sidebar-width);
-  min-height:100vh;
-  transition: margin-left .34s cubic-bezier(.2,.9,.28,1);
-  padding:28px 36px;
-}
+
 body.sidebar-collapsed .main-content{ margin-left: 0; }
 
 /* Center wrapper */
@@ -589,14 +584,7 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
   margin: 0 auto;
 }
 
-/* Heart-shaped map container */
-.heart-map-container {
-  position: relative;
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px;
-}
+
 
 /* Rectangular map with romantic styling */
 #map {
@@ -607,29 +595,112 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
   border: 3px solid rgba(177, 48, 59, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+/* Add these styles to your app/globals.css file */
 
-#map:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 25px 70px rgba(177, 48, 59, 0.25);
+/* Add these styles to your app/globals.css file */
+
+/* Custom heart marker styles */
+.custom-heart-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
 }
 
-/* Decorative hearts around the map */
-.heart-map-container::before {
-  content: '♥';
-  position: absolute;
-  top: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 2rem;
-  color: var(--accent);
-  animation: heartbeat 1.5s ease-in-out infinite;
-  z-index: 100;
+.custom-heart-marker svg {
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
-@keyframes heartbeat {
-  0%, 100% { transform: translateX(-50%) scale(1); }
-  50% { transform: translateX(-50%) scale(1.2); }
+.custom-heart-marker:hover svg {
+  transform: scale(1.15);
 }
+
+/* Blinking heart animation - slow romantic pulse */
+.blinking-heart {
+  animation: blinkHeart 1.5s ease-in-out infinite !important;
+}
+@keyframes popupEaseIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);  /* Start small & below */
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);       /* End full size & normal */
+  }
+}
+
+@keyframes blinkHeart {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Custom popup styling */
+.custom-popup .leaflet-popup-content-wrapper {
+  background: rgba(255, 245, 246, 0.98);
+  border: 2px solid #b1303b;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(177, 48, 59, 0.2);
+  padding: 0;
+}
+
+.custom-popup .leaflet-popup-content {
+  margin: 0;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.custom-popup .leaflet-popup-tip {
+  background: rgba(255, 245, 246, 0.98);
+  border: 2px solid #b1303b;
+  border-top: none;
+  border-left: none;
+}
+
+.memory-popup {
+  font-family: 'Playfair Display', serif;
+}
+
+.memory-popup strong {
+  color: #b1303b;
+  font-size: 1.1rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.memory-popup .memory-text {
+  color: #6f6667;
+  font-family: 'Cormorant Garamond', serif;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+@keyframes blinkHeart {
+  0% {
+    opacity: 1;
+    transform: scale(1);        /* Full visibility, normal size */
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.95);     /* Slightly faded, slightly smaller */
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);        /* Back to normal */
+  }
+}
+
 
 /* Responsive */
 @media (max-width: 980px) {
@@ -651,34 +722,6 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
   #map {
     transform: scale(0.85);
   }
-}
-
-/* Leaflet popup customization for heart theme */
-.leaflet-popup-content-wrapper {
-  background: rgba(255, 245, 246, 0.98);
-  border: 2px solid var(--accent);
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(177, 48, 59, 0.2);
-}
-
-.leaflet-popup-content {
-  margin: 16px;
-  font-family: 'Cormorant Garamond', serif;
-}
-
-.leaflet-popup-content strong {
-  color: var(--accent);
-  font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
-  display: block;
-  margin-bottom: 8px;
-}
-
-.leaflet-popup-tip {
-  background: rgba(255, 245, 246, 0.98);
-  border: 2px solid var(--accent);
-  border-top: none;
-  border-left: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
