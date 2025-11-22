@@ -173,10 +173,6 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
 
 
 /* ===== Sparkles & Bokeh styles ===== */
-
-/* container created by Bokeh.tsx */
-.hero-hero { position: relative; overflow: visible; }
-
 /* bokeh wrap inserted inside .hero-hero by Bokeh.tsx */
 .bokeh-wrap {
   position: absolute;
@@ -204,96 +200,531 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
   100% { transform: translateY(8px) scale(1.02); opacity: .12; }
 }
 
-/* fixed overlay created by Sparkles.tsx and appended to body */
-.hero-sparkles-fixed {
-  position: absolute; /* script sets left/top/width/height */
-  pointer-events: none;
-  z-index: 40; /* above bokeh and hero background, below hero card */
-  overflow: hidden;
-  mix-blend-mode: normal;
-}
-
-/* each sparkle */
-.hero-sparkle {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform-origin: center;
-  pointer-events: none;
-  font-size: 18px;
-  line-height: 1;
-  opacity: .95;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.6);
-  will-change: transform, opacity;
-}
 /* Wrapper that contains background image */
+/* Hero wrapper - full width */
+/* Replace the existing hero styles in globals.css with this */
+
+/* Hero wrapper - simple container */
 .hero-wrapper {
   position: relative;
   width: 100%;
   margin-top: 40px;
+  padding: 80px 20px 40px; /* top, sides, bottom */
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
-/* Background layer */
+/* Background image - covers the hero-wrapper */
 .hero-wrapper::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 360px; /* controls visible area */
-  background: url('/assets/lov-birthday.JPG') center/cover no-repeat;
-  filter: blur(6px) brightness(0.85);
-  opacity: 0.55;
-  z-index: 1;
-  pointer-events: none;
-
-  /* Fade to transparent at top */
-  mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
-}
-
-/* Make sure Hero contents float ABOVE background */
-.hero-hero { position: relative; z-index: 3; }
-
-.hero-sparkles-fixed {
-  position: absolute; /* overlay is inside hero now */
-  left: 0;
-  top: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
+  background: url('/assets/lov-birthday.JPG') center/cover no-repeat;
+  filter: blur(8px) brightness(0.85); /* Adjust blur here: change 8px to 0px-20px */
+  opacity: 0.6; /* Adjust opacity here: 0.0 to 1.0 */
+  z-index: 0;
   pointer-events: none;
-  z-index: 40; /* sits above background (1) and below hero card (60) */
 }
 
-
-/* hearts a bit red-ish, snowflakes light pink */
-.hero-sparkle.heart { color: #e0585b; font-size: 18px; }
-.hero-sparkle.snow  { color: #ffdfe6; font-size: 16px; }
-
-/* falling animation applied inline in the script, but define name to ensure availability */
-@keyframes sparkleFallOverlay {
-  0% {
-    transform: translateY(0) scale(0.9);
-    opacity: 1;
-  }
-  70% {
-    opacity: .95;
-  }
-  100% {
-    transform: translateY(100vh) scale(0.8);
-    opacity: 0;
-  }
+/* Hero content area */
+.hero-hero {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 800px; /* Limits the width */
+  margin: 0 auto;
 }
 
-/* ensure hero-card sits above sparkles */
-.hero-card { position: relative; z-index: 60; }
+/* Hero card - the white box with content */
+.hero-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 50px 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
 
-/* tweak for small sparkle heart size and blur for a soft look */
-.hero-sparkle.heart { filter: drop-shadow(0 6px 14px rgba(177,48,59,0.06)); }
-.hero-sparkle.snow  { filter: drop-shadow(0 6px 24px rgba(255,220,225,0.04)); }
+.hero-card h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  margin: 0 0 16px;
+  color: #2c1618;
+}
+
+.hero-card p {
+  color: #6f6667;
+  margin: 0 0 24px;
+  font-size: 1.1rem;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Add these styles to your globals.css after the hero styles */
+
+/* ===== HERO CARD ENHANCEMENTS ===== */
+.hero-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: var(--accent);
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.hero-description {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #6f6667;
+  max-width: 600px;
+  margin: 0 auto 28px;
+}
+
+/* ===== SECTION COMMON STYLES ===== */
+.section-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  text-align: center;
+  color: #2c1618;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.section-title::after {
+  content: '♥';
+  display: block;
+  font-size: 1.2rem;
+  color: var(--accent);
+  margin-top: 12px;
+}
+
+/* ===== OUR STORY SECTION ===== */
+.our-story-section {
+  padding: 80px 0;
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(255, 245, 246, 0.5) 100%);
+}
+
+.story-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.story-card {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(177, 48, 59, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.story-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(177, 48, 59, 0.15);
+}
+
+.story-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.story-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #2c1618;
+  margin-bottom: 16px;
+}
+
+.story-card p {
+  color: #6f6667;
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+/* ===== STATS SECTION ===== */
+.stats-section {
+  padding: 60px 0;
+  background: white;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 30px 20px;
+  background: linear-gradient(145deg, rgba(255, 227, 232, 0.3), rgba(255, 237, 240, 0.3));
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: scale(1.05);
+}
+
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 1.1rem;
+  color: #5e1a23;
+  font-weight: 600;
+}
+
+/* ===== QUOTE SECTION ===== */
+.quote-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, rgba(255, 227, 232, 0.2), rgba(255, 237, 240, 0.4));
+}
+
+.quote-card {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 50px 40px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(177, 48, 59, 0.1);
+  position: relative;
+}
+
+.quote-card::before {
+  content: '"';
+  position: absolute;
+  top: -20px;
+  left: 30px;
+  font-size: 6rem;
+  color: rgba(177, 48, 59, 0.15);
+  font-family: 'Playfair Display', serif;
+  line-height: 1;
+}
+
+.quote-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  line-height: 1.8;
+  color: #2c1618;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.quote-author {
+  font-size: 1.1rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ===== CTA SECTION ===== */
+.cta-section {
+  padding: 80px 0 100px;
+  background: var(--bg);
+}
+
+.cta-description {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #6f6667;
+  margin-bottom: 50px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin-top: 40px;
+}
+
+.cta-card {
+  background: white;
+  padding: 35px 25px;
+  border-radius: 16px;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.cta-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 40px rgba(177, 48, 59, 0.15);
+  border-color: var(--accent);
+}
+
+.cta-icon {
+  font-size: 3rem;
+  margin-bottom: 18px;
+}
+
+.cta-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: #2c1618;
+  margin-bottom: 12px;
+}
+
+.cta-card p {
+  color: #6f6667;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Mobile responsive */
+@media (max-width: 980px) {
+  .hero-wrapper {
+    padding: 60px 16px 100px;
+  }
+  
+  .hero-card {
+    padding: 40px 24px;
+  }
+  
+  .hero-card h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-card p {
+    font-size: 1rem;
+  }
+}
 
 /* optional: reduce motion support */
 @media (prefers-reduced-motion: reduce) {
-  .bokeh-dot, .hero-sparkle { animation: none !important; transition: none !important; }
+  .bokeh-dot, .global-sparkle { animation: none !important; transition: none !important; }
+}
+
+/* ===== GLOBAL SPARKLES (Full Screen) ===== */
+
+.global-sparkles-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.global-sparkle {
+  position: absolute;
+  pointer-events: none;
+  font-size: 18px;
+  line-height: 1;
+  opacity: 0.85;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+  will-change: transform, opacity;
+}
+
+.global-sparkle.heart {
+  color: #e0585b;
+  filter: drop-shadow(0 2px 8px rgba(224, 88, 91, 0.3));
+}
+
+.global-sparkle.snow {
+  color: #ffdfe6;
+  filter: drop-shadow(0 2px 8px rgba(255, 223, 230, 0.3));
+}
+
+.global-sparkle.star {
+  color: #ffd700;
+  filter: drop-shadow(0 2px 8px rgba(255, 215, 0, 0.3));
+}
+
+/* Add this to your globals.css */
+
+/* ===== MAP PAGE STYLES ===== */
+.map-page {
+  padding: 40px 20px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.map-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.map-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: #2c1618;
+  margin-bottom: 12px;
+}
+
+.map-subtitle {
+  font-size: 1.1rem;
+  color: #6f6667;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Heart-shaped map container */
+.heart-map-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Rectangular map with romantic styling */
+#map {
+  width: 100%;
+  height: 600px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(177, 48, 59, 0.2);
+  border: 3px solid rgba(177, 48, 59, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#map:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 70px rgba(177, 48, 59, 0.25);
+}
+
+/* Decorative hearts around the map */
+.heart-map-container::before {
+  content: '♥';
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  color: var(--accent);
+  animation: heartbeat 1.5s ease-in-out infinite;
+  z-index: 100;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.2); }
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .heart-map-container {
+    height: 600px;
+    max-width: 90%;
+  }
+  
+  .map-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .heart-map-container {
+    height: 500px;
+  }
+  
+  #map {
+    transform: scale(0.85);
+  }
+}
+
+/* Leaflet popup customization for heart theme */
+.leaflet-popup-content-wrapper {
+  background: rgba(255, 245, 246, 0.98);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(177, 48, 59, 0.2);
+}
+
+.leaflet-popup-content {
+  margin: 16px;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.leaflet-popup-content strong {
+  color: var(--accent);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.leaflet-popup-tip {
+  background: rgba(255, 245, 246, 0.98);
+  border: 2px solid var(--accent);
+  border-top: none;
+  border-left: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .global-sparkle {
+    animation: none !important;
+  }
+}
+/* Mobile adjustments */
+@media (max-width: 980px) {
+  .hero-wrapper {
+    width: 100vw;
+    margin-left: 0;
+  }
+  
+  .hero-hero {
+    padding: 64px 20px;
+  }
+  
+  .hero-card {
+    padding: 32px 24px;
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .story-grid,
+  .stats-grid,
+  .cta-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .quote-text {
+    font-size: 1.3rem;
+  }
+  
+  .stat-number {
+    font-size: 2.8rem;
+  }
+  
+  .our-story-section,
+  .quote-section,
+  .cta-section {
+    padding: 50px 0;
+  }
 }
