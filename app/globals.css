@@ -621,6 +621,7 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
 .blinking-heart {
   animation: blinkHeart 1.5s ease-in-out infinite !important;
 }
+
 @keyframes popupEaseIn {
   0% {
     opacity: 0;
@@ -686,6 +687,285 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
   font-size: 0.95rem;
 }
 
+/* ===== ENVELOPE POSTCARDS PAGE STYLES ===== */
+/* ===== ENVELOPE POSTCARDS PAGE STYLES (FIXED) ===== */
+
+.postcards-page {
+  padding: 60px 20px 100px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.postcards-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.postcards-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  color: #2c1618;
+  margin-bottom: 12px;
+}
+
+.postcards-subtitle {
+  font-size: 1.1rem;
+  color: #6f6667;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Grid Layout */
+.postcards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 50px;
+  padding: 0 20px;
+}
+
+/* Envelope Wrapper - Container */
+.envelope-wrapper {
+  perspective: 1200px;
+  height: 300px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.envelope-wrapper:hover {
+  transform: translateY(-10px);
+}
+
+/* Front Envelope */
+.envelope-front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.envelope-wrapper.hovered .envelope-front {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.8) translateY(-20px);
+}
+
+/* Envelope Background - The actual envelope */
+.envelope-bg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f5e6d3 0%, #e8d5c4 100%);
+  border: 2px solid #d4c0a8;
+  border-radius: 6px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+  padding: 25px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.envelope-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, #e8d5c4 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Envelope Flap Line (triangle fold) */
+.envelope-flap-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  border-bottom: 2px solid #c9b59f;
+  pointer-events: none;
+}
+
+/* Stamp */
+.envelope-stamp {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 70px;
+  height: 70px;
+  border: 3px dashed var(--accent);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(45deg, rgba(177, 48, 59, 0.08), rgba(177, 48, 59, 0.03));
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 5;
+}
+
+.envelope-wrapper:hover .envelope-stamp {
+  transform: rotate(-20deg) scale(1.15);
+  box-shadow: 0 8px 20px rgba(177, 48, 59, 0.25);
+}
+
+.stamp-icon {
+  font-size: 42px;
+  color: var(--accent);
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* Postmark Circle */
+.postmark {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  width: 90px;
+  height: 90px;
+  border: 3px solid #c9a980;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.3);
+  z-index: 5;
+}
+
+.postmark p {
+  margin: 0;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #8b7355;
+  font-weight: bold;
+  line-height: 1.3;
+  padding: 0 5px;
+}
+
+/* Address Area */
+.address-area {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.to-line {
+  font-size: 1.2rem;
+  color: #2c1618;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  font-family: 'Playfair Display', serif;
+}
+
+.from-line {
+  font-size: 0.95rem;
+  color: #6b5344;
+  margin: 0;
+  font-style: italic;
+}
+
+/* PHOTO POPUP - Shows on hover */
+.photo-popup {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 20;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: scale(0.5) translateY(50px);
+}
+
+.envelope-wrapper.hovered .photo-popup {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1) translateY(0);
+}
+
+/* Photo Image */
+.popup-photo {
+  width: 100%;
+  height: 70%;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  border: 4px solid white;
+  animation: photoSlideUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes photoSlideUp {
+  from {
+    transform: translateY(80px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Photo Label */
+.photo-label {
+  text-align: center;
+  position: relative;
+  z-index: 5;
+}
+
+.photo-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: #2c1618;
+  font-weight: 700;
+  margin: 0;
+}
+
+.photo-date {
+  font-size: 0.9rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin: 4px 0 0 0;
+}
+
+
+
+
+.envelope-wrapper {
+  animation: envelopeFloat 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.envelope-wrapper:nth-child(1) { animation-delay: 0.1s; }
+.envelope-wrapper:nth-child(2) { animation-delay: 0.2s; }
+.envelope-wrapper:nth-child(3) { animation-delay: 0.3s; }
+.envelope-wrapper:nth-child(4) { animation-delay: 0.4s; }
+.envelope-wrapper:nth-child(5) { animation-delay: 0.5s; }
+.envelope-wrapper:nth-child(6) { animation-delay: 0.6s; }
+
+/* Animation on page load */
+@keyframes envelopeFloat {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes blinkHeart {
   0% {
     opacity: 1;
@@ -700,7 +980,6 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
     transform: scale(1);        /* Back to normal */
   }
 }
-
 
 /* Responsive */
 @media (max-width: 980px) {
@@ -769,5 +1048,102 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
   .quote-section,
   .cta-section {
     padding: 50px 0;
+  }
+}
+@media (max-width: 480px) {
+  .postcards-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .envelope-wrapper {
+    height: 280px;
+  }
+
+  .postcards-page {
+    padding: 40px 15px 80px;
+  }
+
+  .envelope-bg {
+    padding: 20px;
+  }
+
+  .envelope-stamp {
+    width: 55px;
+    height: 55px;
+    top: 15px;
+    right: 15px;
+  }
+
+  .stamp-icon {
+    font-size: 32px;
+  }
+
+  .postmark {
+    width: 65px;
+    height: 65px;
+    top: 15px;
+    left: 15px;
+  }
+
+  .to-line {
+    font-size: 1rem;
+  }
+
+  .from-line {
+    font-size: 0.85rem;
+  }
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+  .postcards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+  }
+
+  .envelope-wrapper {
+    height: 260px;
+  }
+
+  .postcards-title {
+    font-size: 2rem;
+  }
+
+  .postcards-subtitle {
+    font-size: 1rem;
+  }
+
+  .envelope-stamp {
+    width: 60px;
+    height: 60px;
+  }
+
+  .stamp-icon {
+    font-size: 36px;
+  }
+
+  .postmark {
+    width: 75px;
+    height: 75px;
+  }
+
+  .postmark p {
+    font-size: 0.7rem;
+  }
+
+  .to-line {
+    font-size: 1.1rem;
+  }
+
+  .from-line {
+    font-size: 0.9rem;
+  }
+
+  .photo-title {
+    font-size: 1.1rem;
+  }
+
+  .photo-date {
+    font-size: 0.85rem;
   }
 }

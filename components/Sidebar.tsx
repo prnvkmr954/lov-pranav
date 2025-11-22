@@ -69,6 +69,7 @@ export default function Sidebar(): JSX.Element {
           <NavLink href="/timeline">⏳ Timeline</NavLink>
           <NavLink href="/gallery">📷 Gallery</NavLink>
           <NavLink href="/map">📍 Map</NavLink>
+          <NavLink href="/postcards">📬 Postcards</NavLink>
           <NavLink href="/letters">💌 Love Letters</NavLink>
         </nav>
       </aside>
