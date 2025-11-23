@@ -52,7 +52,7 @@ nav .nav-link:hover{ transform: translateX(6px); color: var(--accent) }
 
 /* Fixed toggle so it's always clickable (even when sidebar collapsed) */
 .sidebar-toggle-fixed{
-   position: fixed;
+  position: fixed;
   top: 14px;
   left: calc(var(--sidebar-width) + 14px); /* sits right of the open sidebar on desktop */
   width:44px;
@@ -66,6 +66,7 @@ nav .nav-link:hover{ transform: translateX(6px); color: var(--accent) }
   justify-content:center;
   z-index:1600; /* high so it sits above everything */
   cursor:pointer;
+  transition: left .34s cubic-bezier(.2,.9,.28,1);
 }
 body.sidebar-collapsed .sidebar-toggle-fixed{
   left: 14px; /* small offset from the left edge when sidebar hidden */
@@ -81,12 +82,24 @@ body.sidebar-collapsed .sidebar-toggle-fixed{
 .hamburger.is-open::before{ transform: rotate(45deg) }
 .hamburger.is-open::after{ transform: rotate(-45deg) }
 
-/* Main content */
+/* Main content - FIXED TO PROPERLY PUSH CONTENT */
+.main-content {
+  margin-left: var(--sidebar-width);
+  transition: margin-left 0.34s cubic-bezier(0.2, 0.9, 0.28, 1);
+  padding: 20px;
+  min-height: 100vh;
+}
 
-body.sidebar-collapsed .main-content{ margin-left: 0; }
+body.sidebar-collapsed .main-content { 
+  margin-left: 0; 
+}
 
 /* Center wrapper */
-.content-wrapper{ max-width:1100px; margin:0 auto; position:relative; }
+.content-wrapper{ 
+  max-width:1100px; 
+  margin:0 auto; 
+  position:relative; 
+}
 
 /* Logo area */
 .logo-anim {
@@ -135,17 +148,33 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
 
 /* Responsive */
 @media (max-width:980px){
-  .sidebar-love{ width:78%; max-width:320px }
-  .sidebar-love.open{ transform: translateX(0) }
-  .sidebar-love{ transform: translateX(-260px) }
-  .main-content{ margin-left:0; padding:20px 18px }
-  .content-wrapper .hero-hero::before{ left:-40px; right:-40px }
-  .logo-anim{ width:72px; height:72px }
-  .sidebar-toggle-fixed{ left:12px; top:10px }
-}
-/* small-screen tweaks (toggle sits at edge always) */
-@media (max-width:980px){
-  .sidebar-toggle-fixed { left: 14px; top: 12px; }
+  .sidebar-love{ 
+    width:78%; 
+    max-width:320px;
+    transform: translateX(-100%); /* Hide sidebar completely by default on mobile */
+  }
+  .sidebar-love.open{ 
+    transform: translateX(0); 
+  }
+  .main-content{ 
+    margin-left:0; 
+    padding:20px 18px;
+  }
+  .content-wrapper .hero-hero::before{ 
+    left:-40px; 
+    right:-40px 
+  }
+  .logo-anim{ 
+    width:72px; 
+    height:72px 
+  }
+  .sidebar-toggle-fixed{ 
+    left:14px !important; /* Always at left edge on mobile */
+    top:10px 
+  }
+  body.sidebar-collapsed .sidebar-toggle-fixed {
+    left: 14px !important;
+  }
 }
 
 /* hamburger lines */
@@ -163,9 +192,6 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
 .hamburger.is-open{ background: transparent; }
 .hamburger.is-open::before{ transform: rotate(45deg); }
 .hamburger.is-open::after{ transform: rotate(-45deg); }
-
-
-
 
 /* ===== Sparkles & Bokeh styles ===== */
 /* bokeh wrap inserted inside .hero-hero by Bokeh.tsx */
@@ -194,10 +220,6 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
   0% { transform: translateY(-6px) scale(1); opacity: .06; }
   100% { transform: translateY(8px) scale(1.02); opacity: .12; }
 }
-
-/* Wrapper that contains background image */
-/* Hero wrapper - full width */
-/* Replace the existing hero styles in globals.css with this */
 
 /* Hero wrapper - simple container */
 .hero-wrapper {
@@ -266,7 +288,163 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
   flex-wrap: wrap;
 }
 
-/* Add these styles to your globals.css after the hero styles */
+/* ===== GALLERY PAGE ===== */
+/* ===== GALLERY PAGE ===== */
+.gallery-page {
+  padding: 60px 20px 100px;
+  text-align: center;
+}
+
+.gallery-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  margin-bottom: 40px;
+  color: #b1303b;
+}
+
+/* Grid Layout */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Each book item */
+.book-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  perspective: 1200px;
+  animation: bookFloat 4s ease-in-out infinite;
+}
+
+.book-item:nth-child(2n) { animation-delay: 0.5s; }
+.book-item:nth-child(3n) { animation-delay: 1s; }
+
+.book-inner {
+  width: 100%;
+  height: 260px;
+  position: relative;
+}
+
+/* Closed book look */
+.book-cover {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #f0c49b, #d89a6b);
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(80, 50, 20, 0.25);
+  transform-origin: left center;
+  transition: transform 0.65s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 2;
+}
+
+/* Book spine */
+.book-cover::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6%;
+  bottom: 6%;
+  width: 12px;
+  background: linear-gradient(180deg, #c98352, #b47245);
+  box-shadow: inset -2px 0 4px rgba(0, 0, 0, 0.15);
+  border-radius: 12px 0 0 12px;
+}
+
+/* Page edges on the right */
+.book-cover::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 8%;
+  bottom: 8%;
+  width: 10px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #fdf7f0 0,
+    #fdf7f0 3px,
+    #f1e4d6 3px,
+    #f1e4d6 6px
+  );
+  border-radius: 0 10px 10px 0;
+}
+
+/* Sticker and tag on cover */
+.book-sticker {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 1.4rem;
+  transform: rotate(-15deg);
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.7);
+}
+
+.book-tag {
+  position: absolute;
+  bottom: 18px;
+  left: 40px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  color: #5a3218;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+/* Photo revealed inside */
+.book-photo {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  z-index: 1;
+}
+
+.book-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+}
+
+/* Hover behaviour: book opens like cover */
+.book-item:hover .book-cover {
+  transform: rotateY(-110deg);
+}
+
+/* Card label under book */
+.book-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  color: #5e1a23;
+  font-weight: 600;
+}
+
+
+
+/* Soft floating animation */
+@keyframes bookFloat {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Mobile tweak */
+@media (max-width: 640px) {
+  .book-inner {
+    height: 220px;
+  }
+}
+
+
 
 /* ===== HERO CARD ENHANCEMENTS ===== */
 .hero-subtitle {
@@ -556,8 +734,6 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
   filter: drop-shadow(0 2px 8px rgba(255, 215, 0, 0.3));
 }
 
-/* Add this to your globals.css */
-
 /* ===== MAP PAGE STYLES ===== */
 .map-page {
   padding: 40px 20px 60px;
@@ -584,8 +760,6 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
   margin: 0 auto;
 }
 
-
-
 /* Rectangular map with romantic styling */
 #map {
   width: 100%;
@@ -595,9 +769,6 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
   border: 3px solid rgba(177, 48, 59, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-/* Add these styles to your app/globals.css file */
-
-/* Add these styles to your app/globals.css file */
 
 /* Custom heart marker styles */
 .custom-heart-marker {
@@ -668,10 +839,26 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
   border-top: none;
   border-left: none;
 }
+.memory-popup-image {
+  width: 100%;
+  height: auto;           /* keeps aspect ratio */
+  max-height: 190px;      /* control how tall it can get */
+  object-fit: contain;    /* NO CROPPING – full image visible */
+  display: block;
+  background: #fdf5f6;    /* soft bg behind empty areas (letterbox) */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
 
 .memory-popup {
   font-family: 'Playfair Display', serif;
 }
+.custom-popup .leaflet-popup-content-wrapper {
+  padding: 0 !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
 
 .memory-popup strong {
   color: #b1303b;
@@ -687,9 +874,7 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
   font-size: 0.95rem;
 }
 
-/* ===== ENVELOPE POSTCARDS PAGE STYLES ===== */
 /* ===== ENVELOPE POSTCARDS PAGE STYLES (FIXED) ===== */
-
 .postcards-page {
   padding: 60px 20px 100px;
   max-width: 1400px;
@@ -940,9 +1125,6 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
   margin: 4px 0 0 0;
 }
 
-
-
-
 .envelope-wrapper {
   animation: envelopeFloat 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
@@ -953,6 +1135,176 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
 .envelope-wrapper:nth-child(4) { animation-delay: 0.4s; }
 .envelope-wrapper:nth-child(5) { animation-delay: 0.5s; }
 .envelope-wrapper:nth-child(6) { animation-delay: 0.6s; }
+
+
+
+/* ===== LOVE ENVELOPE GRID PAGE ===== */
+
+.envelope-page {
+  padding: 70px 20px 100px;
+  text-align: center;
+}
+
+.envelope-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  color: #b1303b;
+  margin-bottom: 10px;
+}
+
+.envelope-sub {
+  color: #6f6667;
+  font-size: 1.05rem;
+  margin-bottom: 40px;
+}
+
+/* GRID: 4 envelopes per row on large screens */
+.envelope-scene {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(220px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-items: center;
+}
+
+.envelope-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Envelope container */
+.love-envelope {
+  position: relative;
+  width: 260px;
+  height: 160px;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+/* Base body rectangle */
+.love-envelope-body {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #f84a5f, #c61a33);
+  box-shadow: 0 18px 45px rgba(177, 48, 59, 0.45);
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* Shared flap base */
+.love-envelope-flap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 70%;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+/* Closed flap (front) */
+.flap-closed {
+  top: 0;
+  background: linear-gradient(135deg, #ff6b81, #e1354e);
+  box-shadow: 0 10px 25px rgba(143, 18, 40, 0.35);
+  z-index: 3;
+  transition: opacity 0.35s ease;
+}
+
+/* Open flap (behind the letter) */
+/* Open flap (behind the letter, properly clipped) */
+.flap-open {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 68%;
+  background: linear-gradient(135deg, #ff8b9a, #ff6b81);
+  clip-path: polygon(0 100%, 50% 0, 100% 100%); /* 👈 inverted triangle */
+  transform-origin: top center;
+  transform: rotateX(90deg); /* starts hidden flat */
+  opacity: 0;
+  z-index: 1; 
+  transition:
+    transform 0.55s cubic-bezier(0.19, 1, 0.22, 1),
+    opacity 0.35s ease;
+}
+
+
+/* Letter / photo inside */
+.love-envelope-letter {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 10px;
+  top: 40%;
+  background: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+  transform: translateY(70%);          /* start hidden inside */
+  opacity: 0;
+  z-index: 2;                           /* above open flap, below closed flap */
+  transition:
+    transform 0.6s cubic-bezier(0.19, 1, 0.22, 1),
+    opacity 0.4s ease;
+}
+
+.love-envelope-letter img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* HOVER EFFECTS */
+/* Closed flap fades away */
+.love-envelope:hover .flap-closed {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+
+/* Open flap appears behind the card */
+.love-envelope:hover .flap-open {
+  opacity: 1;
+  transform: rotateX(0deg); /* opens backward into view */
+}
+
+
+/* Letter slides out like a card */
+.love-envelope:hover .love-envelope-letter {
+  transform: translateY(-30%); 
+}
+
+
+/* Caption below each envelope */
+.envelope-caption {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  color: #5e1a23;
+  font-weight: 600;
+}
+
+/* RESPONSIVE: 2 per row on tablet, 1 per row on mobile */
+@media (max-width: 1024px) {
+  .envelope-scene {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .envelope-scene {
+    grid-template-columns: 1fr;
+  }
+
+  .love-envelope {
+    width: 260px;
+    height: 160px;
+  }
+}
+
 
 /* Animation on page load */
 @keyframes envelopeFloat {
@@ -1008,6 +1360,7 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
     animation: none !important;
   }
 }
+
 /* Mobile adjustments */
 @media (max-width: 980px) {
   .hero-wrapper {
@@ -1050,6 +1403,7 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
     padding: 50px 0;
   }
 }
+
 @media (max-width: 480px) {
   .postcards-grid {
     grid-template-columns: 1fr;
@@ -1094,6 +1448,7 @@ body.sidebar-collapsed .main-content{ margin-left: 0; }
     font-size: 0.85rem;
   }
 }
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .postcards-grid {
