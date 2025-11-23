@@ -23,19 +23,15 @@ export default function EnvelopePage() {
       <div className="envelope-scene">
         {ENVELOPES.map(env => (
           <div className="envelope-item" key={env.src}>
-           <div className="love-envelope">
-                {/* Letter / Photo inside */}
-                <div className="love-envelope-letter">
-                    <img src={env.src} alt={env.title} />
-                </div>
+          <div className="love-envelope">
+              {/* Letter / Photo card */}
+              <div className="love-envelope-letter">
+                <img src={env.src} alt={env.title} />
+              </div>
 
-                {/* Envelope body & flaps */}
-                <div className="love-envelope-body"></div>
-                <div className="love-envelope-flap flap-closed"></div>
-                <div className="love-envelope-flap flap-open"></div>
-                </div>
-
-
+              {/* Envelope front with flap */}
+              <div className="love-envelope-front"></div>
+            </div>
             <div className="envelope-caption">{env.title}</div>
           </div>
         ))}

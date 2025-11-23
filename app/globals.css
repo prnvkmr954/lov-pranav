@@ -2,6 +2,7 @@
 
 /* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Cormorant+Garamond:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Allura&display=swap');
 
 :root{
   --sidebar-width: 260px;
@@ -289,17 +290,45 @@ body.sidebar-collapsed .main-content {
 }
 
 /* ===== GALLERY PAGE ===== */
-/* ===== GALLERY PAGE ===== */
 .gallery-page {
   padding: 60px 20px 100px;
   text-align: center;
 }
 
 .gallery-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.4rem;
+  color: #a6192e;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+.gallery-title::after {
+  content: '❦';
+  display: block;
+  font-size: 2rem;
+  margin-top: 6px;
+  color: #d34f6e;
+}
+
+
+/* NEW romantic intro text */
+.gallery-subtitle {
   font-family: 'Playfair Display', serif;
-  font-size: 2.6rem;
+  font-size: 1.4rem;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+/* Romantic subtext line */
+.gallery-subtext {
+  font-family: 'Allura', cursive;
+  font-size: 1.65rem;
+  color: #5e1a23;
   margin-bottom: 40px;
-  color: #b1303b;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.4;
 }
 
 /* Grid Layout */
@@ -331,78 +360,78 @@ body.sidebar-collapsed .main-content {
   position: relative;
 }
 
-/* Closed book look */
+/* ROMANTIC COVER */
 .book-cover {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #f0c49b, #d89a6b);
-  border-radius: 14px;
-  box-shadow: 0 10px 25px rgba(80, 50, 20, 0.25);
+  background: linear-gradient(135deg, #ffd1dc, #f7a0bc); /* soft pinks */
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(177, 48, 59, 0.25);
   transform-origin: left center;
   transition: transform 0.65s cubic-bezier(0.19, 1, 0.22, 1);
   z-index: 2;
 }
 
-/* Book spine */
+/* Spine – deeper rose */
 .book-cover::before {
   content: "";
   position: absolute;
   left: 0;
   top: 6%;
   bottom: 6%;
-  width: 12px;
-  background: linear-gradient(180deg, #c98352, #b47245);
-  box-shadow: inset -2px 0 4px rgba(0, 0, 0, 0.15);
-  border-radius: 12px 0 0 12px;
+  width: 14px;
+  background: linear-gradient(180deg, #e36b88, #bf325c);
+  box-shadow: inset -2px 0 4px rgba(0, 0, 0, 0.18);
+  border-radius: 18px 0 0 18px;
 }
 
-/* Page edges on the right */
+/* Page edges – light, slightly pink */
 .book-cover::after {
   content: "";
   position: absolute;
   right: 0;
-  top: 8%;
-  bottom: 8%;
-  width: 10px;
+  top: 10%;
+  bottom: 10%;
+  width: 12px;
   background: repeating-linear-gradient(
     to bottom,
-    #fdf7f0 0,
-    #fdf7f0 3px,
-    #f1e4d6 3px,
-    #f1e4d6 6px
+    #fff6fa 0,
+    #fff6fa 3px,
+    #f0dbe5 3px,
+    #f0dbe5 6px
   );
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 14px 14px 0;
 }
 
-/* Sticker and tag on cover */
+/* Sticker & tag */
 .book-sticker {
   position: absolute;
   top: 12px;
   right: 16px;
-  font-size: 1.4rem;
-  transform: rotate(-15deg);
+  font-size: 1.3rem;
+  color: #7b142f;
   text-shadow: 0 2px 4px rgba(255, 255, 255, 0.7);
 }
 
 .book-tag {
   position: absolute;
-  bottom: 18px;
+  bottom: 20px;
   left: 40px;
-  padding: 4px 12px;
+  padding: 5px 14px;
   font-size: 0.75rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.65);
   border-radius: 999px;
-  color: #5a3218;
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  color: #7b142f;
+  border: 1px solid rgba(255, 255, 255, 0.9);
 }
 
 /* Photo revealed inside */
 .book-photo {
   position: absolute;
   inset: 0;
-  border-radius: 14px;
+  border-radius: 18px;
   overflow: hidden;
   backface-visibility: hidden;
   z-index: 1;
@@ -1140,6 +1169,8 @@ body.sidebar-collapsed .main-content {
 
 /* ===== LOVE ENVELOPE GRID PAGE ===== */
 
+/* ===== LOVE ENVELOPE GRID PAGE ===== */
+
 .envelope-page {
   padding: 70px 20px 100px;
   text-align: center;
@@ -1181,75 +1212,53 @@ body.sidebar-collapsed .main-content {
   width: 260px;
   height: 160px;
   cursor: pointer;
-  perspective: 1000px;
-}
-
-/* Base body rectangle */
-.love-envelope-body {
-  position: absolute;
-  inset: 0;
-  border-radius: 18px;
+  border-radius: 20px;
+  overflow: hidden;                    /* hides bottom of letter until it slides out */
   background: linear-gradient(135deg, #f84a5f, #c61a33);
   box-shadow: 0 18px 45px rgba(177, 48, 59, 0.45);
-  overflow: hidden;
-  z-index: 0;
 }
 
-/* Shared flap base */
-.love-envelope-flap {
+/* Front rectangle + flap (using ::before) */
+.love-envelope-front {
   position: absolute;
-  left: 0;
-  right: 0;
-  height: 70%;
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #f84a5f, #c61a33);
+  z-index: 1;
 }
 
-/* Closed flap (front) */
-.flap-closed {
+/* Flap as a triangle on the front */
+.love-envelope-front::before {
+  content: "";
+  position: absolute;
   top: 0;
-  background: linear-gradient(135deg, #ff6b81, #e1354e);
-  box-shadow: 0 10px 25px rgba(143, 18, 40, 0.35);
-  z-index: 3;
-  transition: opacity 0.35s ease;
-}
-
-/* Open flap (behind the letter) */
-/* Open flap (behind the letter, properly clipped) */
-.flap-open {
-  position: absolute;
-  bottom: 0;
   left: 0;
   right: 0;
-  height: 68%;
-  background: linear-gradient(135deg, #ff8b9a, #ff6b81);
-  clip-path: polygon(0 100%, 50% 0, 100% 100%); /* 👈 inverted triangle */
+  height: 72%;
+  background: linear-gradient(135deg, #ff6b81, #e1354e);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
   transform-origin: top center;
-  transform: rotateX(90deg); /* starts hidden flat */
-  opacity: 0;
-  z-index: 1; 
-  transition:
-    transform 0.55s cubic-bezier(0.19, 1, 0.22, 1),
-    opacity 0.35s ease;
+  transition: transform 0.55s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 2;
 }
 
-
-/* Letter / photo inside */
+/* Letter / photo card inside */
 .love-envelope-letter {
   position: absolute;
   left: 14px;
   right: 14px;
-  bottom: 10px;
-  top: 40%;
+  bottom: -4px;
+  height: 72%;
   background: #ffffff;
-  border-radius: 14px;
+  border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
-  transform: translateY(70%);          /* start hidden inside */
+  transform: translateY(100%);        /* fully hidden inside envelope */
   opacity: 0;
-  z-index: 2;                           /* above open flap, below closed flap */
   transition:
     transform 0.6s cubic-bezier(0.19, 1, 0.22, 1),
     opacity 0.4s ease;
+  z-index: 3;                          /* above the front + flap */
 }
 
 .love-envelope-letter img {
@@ -1259,25 +1268,16 @@ body.sidebar-collapsed .main-content {
 }
 
 /* HOVER EFFECTS */
-/* Closed flap fades away */
-.love-envelope:hover .flap-closed {
-  opacity: 0;
-  transition: opacity 0.25s ease;
+/* flap lifts up */
+.love-envelope:hover .love-envelope-front::before {
+  transform: translateY(-105%);       /* moves flap up, like opening */
 }
 
-
-/* Open flap appears behind the card */
-.love-envelope:hover .flap-open {
-  opacity: 1;
-  transform: rotateX(0deg); /* opens backward into view */
-}
-
-
-/* Letter slides out like a card */
+/* letter slides out from inside */
 .love-envelope:hover .love-envelope-letter {
-  transform: translateY(-30%); 
+  transform: translateY(-30%);        /* adjust this to  -40% / -50% if you want more out */
+  opacity: 1;
 }
-
 
 /* Caption below each envelope */
 .envelope-caption {
@@ -1285,6 +1285,13 @@ body.sidebar-collapsed .main-content {
   font-size: 1.05rem;
   color: #5e1a23;
   font-weight: 600;
+}
+
+/* RESPONSIVE: 2 per row on tablet, 1 per row on mobile */
+@media (max-width: 1024px) {
+  .envelope-scene {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
 }
 
 /* RESPONSIVE: 2 per row on tablet, 1 per row on mobile */
