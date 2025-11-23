@@ -4,15 +4,18 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { JSX, useEffect, useState } from 'react'
-import Logo from '@/components/Logo' // if you created inline Logo component
+import Logo from '@/components/Logo'
 
 export default function Sidebar(): JSX.Element {
   const pathname = usePathname() || '/'
-  const [open, setOpen] = useState<boolean>(true)
+  const [open, setOpen] = useState<boolean>(false) // Start closed on mobile
 
   // set initial open based on viewport width
   useEffect(() => {
-    const handle = () => setOpen(window.innerWidth > 980)
+    const handle = () => {
+      // Only open sidebar by default on desktop
+      setOpen(window.innerWidth > 980)
+    }
     handle()
     window.addEventListener('resize', handle)
     return () => window.removeEventListener('resize', handle)
@@ -20,8 +23,11 @@ export default function Sidebar(): JSX.Element {
 
   // sync body class so CSS can react
   useEffect(() => {
-    if (!open) document.body.classList.add('sidebar-collapsed')
-    else document.body.classList.remove('sidebar-collapsed')
+    if (!open) {
+      document.body.classList.add('sidebar-collapsed')
+    } else {
+      document.body.classList.remove('sidebar-collapsed')
+    }
   }, [open])
 
   function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
@@ -31,6 +37,7 @@ export default function Sidebar(): JSX.Element {
         href={href}
         className={`nav-link${active ? ' active' : ''}`}
         onClick={() => {
+          // Close sidebar on mobile after navigation
           if (window.innerWidth <= 980) setOpen(false)
         }}
       >
@@ -56,7 +63,6 @@ export default function Sidebar(): JSX.Element {
       <aside className={`sidebar-love ${open ? 'open' : 'collapsed'}`} aria-label="Primary">
         <div className="logo-area">
           <div className="logo-anim">
-            {/* inline SVG logo ensures it never disappears; fallback to file if present */}
             <Logo width={86} height={86} />
           </div>
 
@@ -70,6 +76,7 @@ export default function Sidebar(): JSX.Element {
           <NavLink href="/gallery">📷 Gallery</NavLink>
           <NavLink href="/map">📍 Map</NavLink>
           <NavLink href="/postcards">📬 Postcards</NavLink>
+          <NavLink href="/envelope">📬 Envelope</NavLink>
           <NavLink href="/letters">💌 Love Letters</NavLink>
         </nav>
       </aside>
