@@ -1,18 +1,22 @@
 // components/Hero.tsx
 import Sparkles from '@/components/Sparkles'
 import Bokeh from '@/components/Bokeh'
+import RomanticParticles from '@/components/RomanticParticles'
 
 export default function Hero() {
   return (
     <section className="hero-wrapper">
       {/* Background blur and effects are handled by CSS ::before */}
       
-      <div className="hero-hero">
+      <div className="hero-hero" style={{ position: 'relative' }}>
+        {/* 3D Particles Background - Behind everything */}
+        <RomanticParticles />
+        
         {/* Optional: floating background dots */}
         <Bokeh />
 
-        {/* Main hero card */}
-        <div className="hero-card">
+        {/* Main hero card - On top with higher z-index */}
+        <div className="hero-card" style={{ position: 'relative', zIndex: 10 }}>
           <h1>Lov & PK</h1>
           <p className="hero-subtitle">Our Love Story</p>
           <p className="hero-description">

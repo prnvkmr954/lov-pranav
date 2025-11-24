@@ -3,25 +3,53 @@
 /* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Cormorant+Garamond:wght@300;400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Allura&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&display=swap');
+
+
 
 :root{
   --sidebar-width: 260px;
   --bg: #faf7f8;
   --accent: #b1303b;
-  --hero-image: url('/assets/hero-blur.jpg'); /* put your hero image in public/assets */
+  --hero-image: url('/assets/hero-blur.jpg');
+  --heading-color: #a6192e;  /* 👈 NEW: global heading color */
 }
+
 
 /* Reset */
 *{box-sizing:border-box}
 html,body,#__next{height:100%}
 body{
   margin:0;
-  font-family:'Cormorant Garamond', serif;
+  font-family: 'Cormorant Garamond', serif; /* body text */
   background:var(--bg);
   color:#4b2b33;
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
+
+/* === GLOBAL HEADING STYLE (same as .gallery-title) === */
+h1,
+h2,
+h3,
+.section-title,
+.gallery-title,
+.map-title,
+.postcards-title,
+.envelope-title,
+.hero-card h1,
+.brand-title,
+.photo-title {
+  font-family: 'Great Vibes', cursive !important;  /* same font as gallery-title */
+  color: var(--heading-color) !important;          /* unified romantic color */
+  letter-spacing: 0.5px;
+}
+
+
+
+
 
 /* Scrollbar */
 ::-webkit-scrollbar{ width:10px }
@@ -310,6 +338,281 @@ body.sidebar-collapsed .main-content {
   color: #d34f6e;
 }
 
+/* Romantic intro text */
+.gallery-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+/* Romantic subtext line */
+.gallery-subtext {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.65rem;
+  color: #5e1a23;
+  margin-bottom: 40px;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.4;
+}
+
+/* ===== NOTEBOOK GALLERY STYLES ===== */
+.notebook-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 50px;
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.notebook-item {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.notebook-item:hover {
+  transform: translateY(-5px);
+}
+
+.notebook-wrapper {
+  position: relative;
+  width: 280px;
+  height: 380px;
+  margin: 0 auto;
+  perspective: 1200px;
+}
+
+/* Spiral binding on the left */
+.notebook-spiral {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.spiral-ring {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #666;
+  border-radius: 50%;
+  background: white;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Notebook cover */
+.notebook-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 0 12px 12px 0;
+  box-shadow: 
+    0 4px 20px rgba(0,0,0,0.15),
+    inset 0 0 40px rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: left center;
+  z-index: 10;
+}
+
+/* Cover opens on hover */
+.notebook-item.notebook-open .notebook-cover {
+  transform: rotateY(-140deg);
+}
+
+.cover-decoration {
+  text-align: center;
+  color: white;
+  padding: 20px;
+}
+
+.cover-heart {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.cover-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  margin: 10px 0;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.cover-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  opacity: 0.9;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Notebook pages container */
+.notebook-pages {
+  position: absolute;
+  top: 10px;
+  left: 30px;
+  right: 10px;
+  bottom: 10px;
+  transform-style: preserve-3d;
+}
+
+/* Individual pages */
+.notebook-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    #f8f8f8 0%,
+    #fff 10%,
+    #fff 90%,
+    #f0f0f0 100%
+  );
+  border-radius: 0 8px 8px 0;
+  box-shadow: 
+    0 1px 3px rgba(0,0,0,0.1),
+    inset -1px 0 0 rgba(0,0,0,0.05);
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  backface-visibility: hidden;
+}
+
+/* Page content */
+.page-content {
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 8px 8px 0;
+}
+
+.page-content img {
+  width: 100%;
+  height: calc(100% - 30px);
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.page-number {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  color: #999;
+  font-style: italic;
+}
+
+/* Page states */
+.page-waiting {
+  transform: rotateY(0deg);
+}
+
+.page-current {
+  transform: rotateY(0deg);
+  z-index: 20 !important;
+}
+
+.page-turned {
+  transform: rotateY(-170deg);
+  z-index: 5 !important;
+}
+
+/* Add slight page edges effect */
+.notebook-page::before {
+  content: '';
+  position: absolute;
+  top: 5%;
+  bottom: 5%;
+  left: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0,0,0,0.05) 10%,
+    rgba(0,0,0,0.05) 90%,
+    transparent
+  );
+}
+
+/* Label below notebook */
+.notebook-label {
+  text-align: center;
+  margin-top: 15px;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.label-title {
+  display: block;
+  font-size: 1.2rem;
+  color: #5e1a23;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.page-indicator {
+  display: block;
+  font-size: 0.9rem;
+  color: #999;
+  font-style: italic;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .notebook-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+  }
+  
+  .notebook-wrapper {
+    width: 240px;
+    height: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .notebook-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.gallery-title::after,
+.envelope-title::after {
+  content: "❦";
+  display: block;
+  margin-top: 6px;
+  font-size: 1.8rem;
+  color: #d65b7a;
+}
+
 
 /* NEW romantic intro text */
 .gallery-subtitle {
@@ -321,7 +624,7 @@ body.sidebar-collapsed .main-content {
 
 /* Romantic subtext line */
 .gallery-subtext {
-  font-family: 'Allura', cursive;
+  font-family: 'Playfair Display', serif;
   font-size: 1.65rem;
   color: #5e1a23;
   margin-bottom: 40px;
@@ -442,6 +745,32 @@ body.sidebar-collapsed .main-content {
   height: 100%;
   object-fit: cover;
   transform: scale(1.02);
+}
+
+/* subtle stacked pages look when the cover is open */
+.book-pages-hint {
+  position: absolute;
+  right: 6px;
+  top: 12%;
+  bottom: 12%;
+  width: 10px;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.9) 0,
+    rgba(255, 255, 255, 0.9) 3px,
+    rgba(240, 219, 229, 0.9) 3px,
+    rgba(240, 219, 229, 0.9) 6px
+  );
+  border-radius: 0 8px 8px 0;
+  opacity: 0;
+  transform: translateX(4px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.book-item:hover .book-pages-hint {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* Hover behaviour: book opens like cover */
@@ -776,7 +1105,6 @@ body.sidebar-collapsed .main-content {
 }
 
 .map-title {
-  font-family: 'Playfair Display', serif;
   font-size: 2.5rem;
   color: #2c1618;
   margin-bottom: 12px;
@@ -903,52 +1231,6 @@ body.sidebar-collapsed .main-content {
   font-size: 0.95rem;
 }
 
-/* ===== ENVELOPE POSTCARDS PAGE STYLES (FIXED) ===== */
-.postcards-page {
-  padding: 60px 20px 100px;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.postcards-header {
-  text-align: center;
-  margin-bottom: 80px;
-}
-
-.postcards-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.8rem;
-  color: #2c1618;
-  margin-bottom: 12px;
-}
-
-.postcards-subtitle {
-  font-size: 1.1rem;
-  color: #6f6667;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* Grid Layout */
-.postcards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 50px;
-  padding: 0 20px;
-}
-
-/* Envelope Wrapper - Container */
-.envelope-wrapper {
-  perspective: 1200px;
-  height: 300px;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.envelope-wrapper:hover {
-  transform: translateY(-10px);
-}
 
 /* Front Envelope */
 .envelope-front {
@@ -1020,6 +1302,14 @@ body.sidebar-collapsed .main-content {
   background: linear-gradient(45deg, rgba(177, 48, 59, 0.08), rgba(177, 48, 59, 0.03));
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   z-index: 5;
+}
+.subtitle, 
+.envelope-sub, 
+.gallery-subtext {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: #7d4b4b;
+  line-height: 1.7;
 }
 
 .envelope-wrapper:hover .envelope-stamp {
@@ -1167,33 +1457,379 @@ body.sidebar-collapsed .main-content {
 
 
 
-/* ===== LOVE ENVELOPE GRID PAGE ===== */
+/* ===== ROMANTIC S-TIMELINE ===== */
+/* ===== COMPACT TIMELINE - SMALLER CARDS, EQUAL SPACING ===== */
 
-/* ===== LOVE ENVELOPE GRID PAGE ===== */
+.timeline-page {
+  padding: 60px 15px 80px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
 
-.envelope-page {
-  padding: 70px 20px 100px;
+.timeline-header {
   text-align: center;
-}
-
-.envelope-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.6rem;
-  color: #b1303b;
-  margin-bottom: 10px;
-}
-
-.envelope-sub {
-  color: #6f6667;
-  font-size: 1.05rem;
   margin-bottom: 40px;
 }
 
-/* GRID: 4 envelopes per row on large screens */
+.timeline-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.8rem;
+  color: #a6192e;
+  letter-spacing: 0.5px;
+}
+
+.timeline-title::after {
+  content: "❦";
+  display: block;
+  margin-top: 6px;
+  font-size: 1.6rem;
+  color: #d65b7a;
+}
+
+.timeline-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: #6f6667;
+  max-width: 600px;
+  margin: 10px auto 0;
+  line-height: 1.6;
+}
+
+/* === TIMELINE CONTAINER === */
+
+.timeline-s-container {
+  position: relative;
+  max-width: 1000px;
+  margin: 30px auto 0;
+  height: 1400px;
+}
+
+.timeline-s-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.timeline-s-svg path {
+  fill: none;
+  stroke: #2c2c2c;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 18 12;
+  animation: sPathDash 4s linear infinite;
+  opacity: 0.75;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+@keyframes sPathDash {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -60; }
+}
+
+.timeline-s-dot {
+  fill: #fff;
+  stroke: #b1303b;
+  stroke-width: 3;
+  filter: drop-shadow(0 3px 8px rgba(177, 48, 59, 0.35));
+}
+
+/* === COUPLE BUBBLE === */
+
+.timeline-s-couple {
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  offset-path: path("M 100 80 C 300 80, 500 80, 700 80 C 850 80, 900 150, 850 220 C 800 280, 650 280, 550 280 C 400 280, 250 320, 200 400 C 150 480, 200 560, 350 600 C 500 640, 700 640, 800 700 C 900 760, 900 840, 800 900 C 700 960, 500 960, 350 1000 C 200 1040, 150 1120, 250 1180 C 350 1240, 550 1260, 750 1280");
+  offset-distance: 5%;
+  offset-rotate: auto;
+  animation: 
+    coupleAlongS 20s linear infinite,
+    bubbleFadeIn 0.6s ease forwards;
+  animation-delay: 1.2s, 1.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  opacity: 0;
+}
+
+.timeline-s-couple::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffe5ec, #fbd1dd, #f9b0c8);
+  box-shadow: 0 8px 25px rgba(177, 48, 59, 0.35);
+  opacity: 0.98;
+  z-index: -1;
+}
+
+@keyframes bubbleFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes coupleAlongS {
+  0%   { offset-distance: 5%; }
+  100% { offset-distance: 105%; }
+}
+
+.couple-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+.couple-emoji {
+  font-size: 1.5rem;
+  margin-bottom: 2px;
+}
+
+.couple-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: #7d3942;
+  background: rgba(255,255,255,0.95);
+  padding: 2px 5px;
+  border-radius: 999px;
+}
+
+/* Stage animations */
+.stage-1  { animation: stage1  20s linear infinite 1.2s; }
+.stage-2  { animation: stage2  20s linear infinite 1.2s; }
+.stage-3  { animation: stage3  20s linear infinite 1.2s; }
+.stage-4  { animation: stage4  20s linear infinite 1.2s; }
+.stage-5  { animation: stage5  20s linear infinite 1.2s; }
+.stage-6  { animation: stage6  20s linear infinite 1.2s; }
+.stage-7  { animation: stage7  20s linear infinite 1.2s; }
+.stage-8  { animation: stage8  20s linear infinite 1.2s; }
+.stage-9  { animation: stage9  20s linear infinite 1.2s; }
+.stage-10 { animation: stage10 20s linear infinite 1.2s; }
+
+@keyframes stage1  { 0%, 8%   { opacity: 1; } 10%, 100% { opacity: 0; } }
+@keyframes stage2  { 0%, 9%   { opacity: 0; } 10%, 18%  { opacity: 1; } 20%, 100% { opacity: 0; } }
+@keyframes stage3  { 0%, 19%  { opacity: 0; } 20%, 28%  { opacity: 1; } 30%, 100% { opacity: 0; } }
+@keyframes stage4  { 0%, 29%  { opacity: 0; } 30%, 38%  { opacity: 1; } 40%, 100% { opacity: 0; } }
+@keyframes stage5  { 0%, 39%  { opacity: 0; } 40%, 49%  { opacity: 1; } 51%, 100% { opacity: 0; } }
+@keyframes stage6  { 0%, 49%  { opacity: 0; } 51%, 59%  { opacity: 1; } 61%, 100% { opacity: 0; } }
+@keyframes stage7  { 0%, 59%  { opacity: 0; } 61%, 69%  { opacity: 1; } 71%, 100% { opacity: 0; } }
+@keyframes stage8  { 0%, 69%  { opacity: 0; } 71%, 79%  { opacity: 1; } 81%, 100% { opacity: 0; } }
+@keyframes stage9  { 0%, 79%  { opacity: 0; } 81%, 89%  { opacity: 1; } 91%, 100% { opacity: 0; } }
+@keyframes stage10 { 0%, 89%  { opacity: 0; } 91%, 100% { opacity: 1; } }
+
+/* === SMALLER COMPACT CARDS WITH EXACT EQUAL SPACING === */
+
+.timeline-s-events {
+  position: absolute;
+  inset: 0;
+}
+
+.timeline-s-event {
+  position: absolute;
+  max-width: 220px; /* SMALLER */
+  opacity: 0;
+  animation: sCardIn 0.6s ease forwards;
+}
+
+/* EXACT 10.5% SPACING - NO OVERLAP GUARANTEED */
+/* Cards positioned to align with actual dot locations on the S-curve */
+.event-1  { top: 4%; left: 1%; }      /* cy="80" - College */
+.event-2  { top: 1%; right: 4%; }     /* cy="150" - Instagram */
+.event-3  { top: 24%; left: -5%; }     /* cy="280" - Mohali Move */
+.event-4  { top: 15%; right: 21%; }    /* cy="400" - Together */
+.event-5  { top: 40%; left: 10%; }     /* cy="600" - COVID */
+.event-6  { top: 45%; right: -05%; }    /* cy="700" - Back */
+.event-7  { top: 60%; left: 55%; }     /* cy="900" - Birthdays */
+.event-8  { top: 66%; right: 67%; }    /* cy="1000" - Noida */
+.event-9  { top: 80%; left: 30%; }     /* cy="1180" - Gurgaon */
+.event-10 { top: 86%; right: 1%; }    /* cy="1280" - Forever */
+
+/* Stagger animations */
+.event-1  { animation-delay: 0.1s; }
+.event-2  { animation-delay: 0.2s; }
+.event-3  { animation-delay: 0.3s; }
+.event-4  { animation-delay: 0.4s; }
+.event-5  { animation-delay: 0.5s; }
+.event-6  { animation-delay: 0.6s; }
+.event-7  { animation-delay: 0.7s; }
+.event-8  { animation-delay: 0.8s; }
+.event-9  { animation-delay: 0.9s; }
+.event-10 { animation-delay: 1.0s; }
+
+/* COMPACT CARD STYLING */
+.timeline-s-card {
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 14px;
+  padding: 14px 16px;  /* SMALLER PADDING */
+  box-shadow: 0 10px 30px rgba(177, 48, 59, 0.12);
+  border: 2px solid rgba(177, 48, 59, 0.08);
+  backdrop-filter: blur(10px);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+/* Smaller emoji badge */
+.timeline-emoji {
+  position: absolute;
+  top: -12px;
+  right: 12px;
+  width: 35px;
+  height: 35px;
+  background: linear-gradient(135deg, #ff6b9d, #ffa6c1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 10px rgba(177, 48, 59, 0.25);
+}
+
+.timeline-s-card::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 35px;
+  height: 2px;
+  transform: translateY(-50%);
+  background: linear-gradient(to right, rgba(177, 48, 59, 0.15), rgba(177, 48, 59, 0.5));
+}
+
+.timeline-s-event.left .timeline-s-card::after {
+  right: -35px;
+}
+
+.timeline-s-event.right .timeline-s-card::after {
+  left: -35px;
+  transform: translateY(-50%) scaleX(-1);
+}
+
+.timeline-s-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 18px 45px rgba(177, 48, 59, 0.22);
+  border-color: rgba(177, 48, 59, 0.2);
+}
+
+/* SMALLER TEXT SIZES */
+.timeline-year {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.7rem;  /* SMALLER */
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #b1303b;
+  margin-bottom: 5px;
+  opacity: 0.8;
+}
+
+.timeline-card-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.4rem;  /* SMALLER */
+  margin: 0 0 3px;
+  color: #a6192e;
+  line-height: 1.2;
+}
+
+.timeline-card-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.82rem;  /* SMALLER */
+  color: #8a4b49;
+  margin: 0 0 6px;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.timeline-card-note {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.8rem;  /* SMALLER */
+  color: #5c3a3a;
+  margin: 0;
+  line-height: 1.5;
+}
+
+@keyframes sCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* === RESPONSIVE === */
+
+@media (max-width: 900px) {
+  .timeline-s-container {
+    height: auto;
+    padding-bottom: 30px;
+  }
+
+  .timeline-s-svg,
+  .timeline-s-couple {
+    display: none;
+  }
+
+  .timeline-s-events {
+    position: static;
+  }
+
+ .timeline-s-event {
+  position: absolute;
+  max-width: 220px;
+  opacity: 0;
+  animation: sCardIn 0.6s ease forwards;
+}
+
+  .timeline-s-card::after {
+    display: none;
+  }
+
+  .timeline-emoji {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .timeline-title {
+    font-size: 2.2rem;
+  }
+
+  .timeline-sub {
+    font-size: 0.9rem;
+  }
+
+  .timeline-s-card {
+    padding: 12px 14px;
+  }
+
+  .timeline-card-title {
+    font-size: 1.3rem;
+  }
+}
+/* ===== LOVE ENVELOPE GRID PAGE ===== */
+/* === PRISMIC-STYLE ENVELOPE (BIGGER, 3 PER ROW, WITH PHOTO) === */
+
+/* GRID: 3 envelopes per row on large screens */
 .envelope-scene {
   display: grid;
-  grid-template-columns: repeat(4, minmax(220px, 1fr));
-  gap: 40px;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  gap: 48px;
   max-width: 1200px;
   margin: 0 auto;
   justify-items: center;
@@ -1203,80 +1839,174 @@ body.sidebar-collapsed .main-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
-/* Envelope container */
-.love-envelope {
+/* Envelope container (per postcard) */
+.letter-image {
   position: relative;
-  width: 260px;
-  height: 160px;
+  width: 260px;   /* bigger */
+  height: 220px;  /* bigger */
   cursor: pointer;
-  border-radius: 20px;
-  overflow: hidden;                    /* hides bottom of letter until it slides out */
-  background: linear-gradient(135deg, #f84a5f, #c61a33);
-  box-shadow: 0 18px 45px rgba(177, 48, 59, 0.45);
 }
 
-/* Front rectangle + flap (using ::before) */
-.love-envelope-front {
+/* The animated envelope */
+.animated-mail {
   position: absolute;
   inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(135deg, #f84a5f, #c61a33);
-  z-index: 1;
+  height: 180px;   /* scaled up from 150 */
+  width: 260px;    /* scaled up from 200 */
+  margin: auto;
+  transition: 0.4s;
 }
 
-/* Flap as a triangle on the front */
-.love-envelope-front::before {
-  content: "";
+/* Bottom triangle (front body) */
+.animated-mail .body {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 72%;
-  background: linear-gradient(135deg, #ff6b81, #e1354e);
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  transform-origin: top center;
-  transition: transform 0.55s cubic-bezier(0.19, 1, 0.22, 1);
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 120px 260px;  /* taller and wider */
+  border-color: transparent transparent #e95f55 transparent;
   z-index: 2;
 }
 
-/* Letter / photo card inside */
-.love-envelope-letter {
+/* Top triangle (flap) */
+.animated-mail .top-fold {
   position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom: -4px;
-  height: 72%;
-  background: #ffffff;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
-  transform: translateY(100%);        /* fully hidden inside envelope */
-  opacity: 0;
-  transition:
-    transform 0.6s cubic-bezier(0.19, 1, 0.22, 1),
-    opacity 0.4s ease;
-  z-index: 3;                          /* above the front + flap */
+  top: 60px;                /* a bit lower because taller */
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 60px 130px 0 130px;  /* centered flap */
+  transform-origin: 50% 0%;
+  transition: transform 0.4s 0.4s, z-index 0.2s 0.4s;
+  border-color: #cf4a43 transparent transparent transparent;
+  z-index: 2;
 }
 
-.love-envelope-letter img {
+/* Back rectangle */
+.animated-mail .back-fold {
+  position: absolute;
+  bottom: 0;
+  width: 260px;
+  height: 120px;
+  background: #cf4a43;
+  z-index: 0;
+}
+
+/* Left folded side */
+.animated-mail .left-fold {
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 60px 0 60px 130px;
+  border-color: transparent transparent transparent #e15349;
+  z-index: 2;
+}
+
+/* The letter inside the envelope */
+.animated-mail .letter {
+  left: 25px;
+  bottom: 0;
+  position: absolute;
+  width: 210px;
+  height: 80px;           /* closed height */
+  background: white;
+  z-index: 1;
+  overflow: hidden;
+  transition: 0.4s 0.2s;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+/* Top border with diagonal stripes */
+.animated-mail .letter-border {
+  height: 10px;
+  width: 100%;
+  background: repeating-linear-gradient(
+    -45deg,
+    #cb5a5e,
+    #cb5a5e 8px,
+    transparent 8px,
+    transparent 18px
+  );
+}
+
+/* Photo inside the letter */
+.letter-photo-wrapper {
+  width: 100%;
+  height: 110px;
+  overflow: hidden;
+}
+
+.letter-photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-/* HOVER EFFECTS */
-/* flap lifts up */
-.love-envelope:hover .love-envelope-front::before {
-  transform: translateY(-105%);       /* moves flap up, like opening */
+/* Meta text on the letter */
+.letter-meta-block {
+  padding: 6px 8px 10px;
+  font-family: 'Cormorant Garamond', serif;
 }
 
-/* letter slides out from inside */
-.love-envelope:hover .love-envelope-letter {
-  transform: translateY(-30%);        /* adjust this to  -40% / -50% if you want more out */
-  opacity: 1;
+.letter-title-text {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #cb5a5e;
+}
+
+.letter-date-text {
+  font-size: 0.75rem;
+  color: #a96a68;
+}
+
+.letter-sender-text {
+  font-size: 0.75rem;
+  color: #8a4b49;
+  font-style: italic;
+}
+
+/* Shadow under the envelope */
+.shadow {
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 280px;
+  height: 30px;
+  transform: translateX(-50%);
+  border-radius: 100%;
+  background: radial-gradient(
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.0),
+    rgba(0, 0, 0, 0.0)
+  );
+  transition: 0.4s;
+}
+
+/* HOVER STATE – same as Prismic demo, just scaled */
+.letter-image:hover .animated-mail {
+  transform: translateY(50px);
+}
+
+.letter-image:hover .animated-mail .top-fold {
+  transition: transform 0.4s, z-index 0.2s;
+  transform: rotateX(180deg);
+  z-index: 0;
+}
+
+.letter-image:hover .animated-mail .letter {
+  height: 200px;  /* slide the card out more */
+}
+
+.letter-image:hover .shadow {
+  width: 320px;
 }
 
 /* Caption below each envelope */
@@ -1287,12 +2017,26 @@ body.sidebar-collapsed .main-content {
   font-weight: 600;
 }
 
-/* RESPONSIVE: 2 per row on tablet, 1 per row on mobile */
+/* Responsive: 2 per row on tablet, 1 per row on mobile */
 @media (max-width: 1024px) {
   .envelope-scene {
-    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    grid-template-columns: repeat(2, minmax(240px, 1fr));
   }
 }
+
+@media (max-width: 640px) {
+  .envelope-scene {
+    grid-template-columns: 1fr;
+  }
+
+  .letter-image {
+    width: 240px;
+    height: 210px;
+  }
+}
+
+
+
 
 /* RESPONSIVE: 2 per row on tablet, 1 per row on mobile */
 @media (max-width: 1024px) {

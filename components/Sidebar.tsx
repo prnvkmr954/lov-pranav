@@ -72,10 +72,9 @@ export default function Sidebar(): JSX.Element {
 
         <nav className="love-menu" aria-label="Main navigation">
           <NavLink href="/">🏠 Home</NavLink>
-          <NavLink href="/timeline">⏳ Timeline</NavLink>
+          <NavLink href="/timeline">⏳ T`imeline</NavLink>
           <NavLink href="/gallery">📷 Gallery</NavLink>
           <NavLink href="/map">📍 Map</NavLink>
-          <NavLink href="/postcards">📬 Postcards</NavLink>
           <NavLink href="/envelope">📬 Envelope</NavLink>
           <NavLink href="/letters">💌 Love Letters</NavLink>
         </nav>
