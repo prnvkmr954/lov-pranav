@@ -6,15 +6,15 @@ import type { ReactNode } from 'react'
 
 export const metadata = {
   title: 'Lov & PK — Heartfelt Trail 💖',
-  description: 'A romantic journey through envelopes, memories, and love.',
+  description: 'A love story from a college lab in 2016 to cities, careers and forever — told through envelopes, photos, maps and time.',
   openGraph: {
     title: 'Lov & PK — Heartfelt Trail 💖',
-    description: 'A romantic journey through envelopes, memories, and love.',
+    description: 'A love story from a college lab in 2016 to cities, careers and forever — told through envelopes, photos, maps and time.',
     url: 'https://loveleenpranav.com/assets/about-photo.jpg',
     siteName: 'Lov & PK — Heartfelt Trail',
     images: [
       {
-        url: 'about-photo.jpg',
+        url: 'https://loveleenpranav.com/assets/about-photo.jpg',
         width: 1200,
         height: 630,
         alt: 'Lov & PK — Our Love Story'
