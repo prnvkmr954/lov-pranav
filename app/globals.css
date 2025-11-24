@@ -111,6 +111,150 @@ body.sidebar-collapsed .sidebar-toggle-fixed{
 .hamburger.is-open::before{ transform: rotate(45deg) }
 .hamburger.is-open::after{ transform: rotate(-45deg) }
 
+
+
+
+/* ===================== GLOBAL LOADING SCREEN ===================== */
+
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  background: radial-gradient(circle at top, #ffe0ea 0, #fff4f8 45%, #fce5ee 100%);
+  backdrop-filter: blur(6px);
+  animation: loadingFadeIn 0.4s ease-out;
+}
+
+.loading-hearts {
+  position: relative;
+  width: 220px;
+  height: 120px;
+}
+
+/* base heart style */
+.loading-heart {
+  position: absolute;
+  font-size: 3rem;
+  text-shadow: 0 8px 20px rgba(177, 48, 59, 0.4);
+}
+
+/* left heart comes from left */
+.loading-heart-left {
+  left: 0;
+  top: 40%;
+  transform: translateY(-50%);
+  animation: heartLeftIn 1.8s ease-in-out infinite;
+}
+
+/* right heart comes from right */
+.loading-heart-right {
+  right: 0;
+  top: 40%;
+  transform: translateY(-50%);
+  animation: heartRightIn 1.8s ease-in-out infinite;
+}
+
+/* center glowing heart – appears when they meet */
+.loading-heart-center {
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  animation: heartCenterPulse 1.8s ease-in-out infinite;
+}
+
+/* text */
+.loading-text-main {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.1rem;
+  color: #a6192e;
+  text-align: center;
+}
+
+.loading-text-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.03rem;
+  color: #6b4b4e;
+  text-align: center;
+}
+
+/* subtle fade-in of whole overlay */
+@keyframes loadingFadeIn {
+  from { opacity: 0; transform: scale(1.02); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* left heart moving towards center */
+@keyframes heartLeftIn {
+  0%   { transform: translate(-40px, -50%) scale(0.9); opacity: 0; }
+  30%  { opacity: 1; }
+  50%  { transform: translate(10px, -50%) scale(1); }
+  70%  { transform: translate(0, -50%) scale(0.96); }
+  100% { transform: translate(-40px, -50%) scale(0.9); opacity: 0; }
+}
+
+/* right heart moving towards center */
+@keyframes heartRightIn {
+  0%   { transform: translate(40px, -50%) scale(0.9); opacity: 0; }
+  30%  { opacity: 1; }
+  50%  { transform: translate(-10px, -50%) scale(1); }
+  70%  { transform: translate(0, -50%) scale(0.96); }
+  100% { transform: translate(40px, -50%) scale(0.9); opacity: 0; }
+}
+
+/* center heart appears + pulses when other two meet */
+@keyframes heartCenterPulse {
+  0%, 25% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 0 0 0 rgba(255, 120, 160, 0.6);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.95);
+    box-shadow: 0 0 0 16px rgba(255, 120, 160, 0);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.02);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+}
+
+/* small screens */
+@media (max-width: 640px) {
+  .loading-heart {
+    font-size: 2.5rem;
+  }
+
+  .loading-text-main {
+    font-size: 1.8rem;
+  }
+
+  .loading-text-sub {
+    font-size: 0.95rem;
+    padding: 0 20px;
+  }
+}
+
+
+
+
+
+
 /* Main content - FIXED TO PROPERLY PUSH CONTENT */
 .main-content {
   margin-left: var(--sidebar-width);
@@ -610,7 +754,7 @@ body.sidebar-collapsed .main-content {
   display: block;
   margin-top: 6px;
   font-size: 1.8rem;
-  color: #d65b7a;
+  color: #19490d;
 }
 
 
@@ -2055,6 +2199,228 @@ body.sidebar-collapsed .main-content {
     height: 160px;
   }
 }
+
+/* ===================== ABOUT PAGE ===================== */
+
+.about-page {
+  position: relative;
+  min-height: 100vh;
+  padding: 90px 20px 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: radial-gradient(circle at top, #ffeef3 0, #fff7fb 45%, #fdf3f6 100%);
+}
+
+.about-inner {
+  position: relative;
+  max-width: 1100px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: center;
+  z-index: 1;
+}
+
+/* Text card */
+
+.about-card {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 24px;
+  padding: 28px 34px 30px;
+  box-shadow: 0 20px 60px rgba(177, 48, 59, 0.18);
+  border: 1px solid rgba(177, 48, 59, 0.12);
+  backdrop-filter: blur(10px);
+  animation: aboutFadeIn 0.8s ease-out forwards;
+  transform-origin: left center;
+}
+
+.about-kicker {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #b1303b;
+  margin-bottom: 6px;
+}
+
+.about-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.8rem;
+  color: #a6192e;
+  margin: 0 0 12px;
+}
+
+.about-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.02rem;
+  line-height: 1.9;
+  color: #5d3a3c;
+  margin: 0 0 12px;
+}
+
+.about-signoff {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  margin-top: 16px;
+  color: #7d3942;
+  font-style: italic;
+}
+
+.about-signoff span {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.7rem;
+  color: #a6192e;
+  margin-left: 6px;
+}
+
+/* Photo side */
+
+.about-photo-wrap {
+  position: relative;
+  justify-self: center;
+  animation: aboutSlideUp 0.9s ease-out forwards;
+  animation-delay: 0.15s;
+  opacity: 0;
+}
+
+.about-photo-frame {
+  position: relative;
+  width: 320px;
+  max-width: 100%;
+  border-radius: 22px;
+  padding: 12px 12px 40px;
+  background: linear-gradient(145deg, #ffe4eb, #ffc8d8);
+  box-shadow: 0 20px 55px rgba(177, 48, 59, 0.3);
+  transform: rotate(-3deg);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.about-photo {
+  display: block;
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.about-photo-caption {
+  position: absolute;
+  left: 18px;
+  bottom: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.96);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  color: #7d3942;
+  box-shadow: 0 6px 15px rgba(177, 48, 59, 0.25);
+}
+
+.about-photo-shadow {
+  position: absolute;
+  inset: auto 14px -18px;
+  height: 26px;
+  border-radius: 999px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.35), transparent 70%);
+  opacity: 0.4;
+  filter: blur(2px);
+}
+
+/* Photo hover: gentle float / tilt */
+
+.about-photo-frame:hover {
+  transform: translateY(-8px) rotate(0deg) scale(1.02);
+  box-shadow: 0 26px 70px rgba(177, 48, 59, 0.38);
+}
+
+/* Floating hearts in the background */
+
+.about-heart {
+  position: absolute;
+  font-size: 1.9rem;
+  opacity: 0.25;
+  animation: aboutHeartFloat 9s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.about-heart-1 {
+  left: 8%;
+  bottom: -40px;
+  animation-delay: 0s;
+}
+
+.about-heart-2 {
+  right: 12%;
+  bottom: -60px;
+  animation-delay: 2s;
+}
+
+.about-heart-3 {
+  left: 45%;
+  bottom: -80px;
+  animation-delay: 4s;
+}
+
+@keyframes aboutHeartFloat {
+  0%   { transform: translateY(0) scale(1); opacity: 0; }
+  10%  { opacity: 0.25; }
+  50%  { transform: translateY(-220px) scale(1.1); opacity: 0.28; }
+  90%  { opacity: 0; }
+  100% { transform: translateY(-260px) scale(1.1); opacity: 0; }
+}
+
+/* About animations */
+
+@keyframes aboutFadeIn {
+  from { opacity: 0; transform: translateX(-20px) scale(0.98); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes aboutSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+  .about-inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .about-photo-wrap {
+    justify-self: center;
+  }
+
+  .about-photo-frame {
+    transform: rotate(-2deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .about-page {
+    padding-top: 70px;
+  }
+
+  .about-card {
+    padding: 22px 20px 24px;
+  }
+
+  .about-title {
+    font-size: 2.3rem;
+  }
+
+  .about-photo {
+    height: 220px;
+  }
+}
+
 
 
 /* Animation on page load */

@@ -7,45 +7,66 @@ import Lightbox from '../../components/Lightbox'
 const POSTCARDS = [
   {
     id: 1,
-    title: 'Udaipur',
-    date: 'Summer 2023',
+    title: '1st Birthday 2017',
+    date: 'Summer 2016',
     image: '/assets/cards/1.jpeg',
-    sender: 'From: Lov & PK'
+    sender: 'From: Lov'
   },
   {
     id: 2,
-    title: 'Zirakpur',
+    title: '2nd Birthday 2018',
     date: 'Monsoon 2023',
     image: '/assets/cards/2.jpeg',
-    sender: 'From: Lov & PK'
+    sender: 'From: Lov'
   },
   {
     id: 3,
-    title: 'Ganga Maa',
+    title: '3rd Birthday 2019',
     date: 'Winter 2023',
     image: '/assets/cards/3.jpeg',
-    sender: 'From: Lov & PK'
+    sender: 'From: Lov'
   },
   {
     id: 4,
-    title: 'Palace City',
+    title: '4th Birthday 2020',
     date: 'Spring 2024',
     image: '/assets/cards/4.jpeg',
-    sender: 'From: Lov & PK'
+    sender: 'From: Lov'
   },
   {
     id: 5,
-    title: 'Our Love',
+    title: '5th Birthday 2021',
     date: 'Every Day',
     image: '/assets/cards/5.jpeg',
-    sender: 'From: My Heart'
+    sender: 'From: Lov'
   },
   {
     id: 6,
-    title: 'Memories',
+    title: '5th Birthday 2022',
     date: 'Forever',
     image: '/assets/cards/6.jpeg',
-    sender: 'From: Forever'
+    sender: 'From: Lov'
+  },
+  {
+    id: 7,
+    title: '6th Birthday 2023',
+    date: 'Forever',
+    image: '/assets/cards/6.jpeg',
+    sender: 'From: Lov'
+  },
+  {
+    id: 8,
+    title: 'Chocolate Day 2024',
+    date: 'Forever',
+    image: '/assets/cards/8.jpeg',
+    sender: 'From: Lov'
+  },
+  {
+    id: 9,
+    title: '7th Birthday 2024',
+    date: 'Forever',
+    image: '/assets/cards/9.jpeg',
+    sender: 'From: Lov'
   }
 ]
 
