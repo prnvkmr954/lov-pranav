@@ -2,11 +2,12 @@
   "name": "lovpk-next",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
+ "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "export": "next build",
+    "deploy": "npm run export && firebase deploy"
   },
   "dependencies": {
     "clsx": "^2.1.1",
