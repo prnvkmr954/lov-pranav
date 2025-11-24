@@ -7,22 +7,25 @@ import { usePathname } from 'next/navigation'
 export default function GlobalLoader() {
   const pathname = usePathname()
   const [visible, setVisible] = useState(true)
+  const [fade, setFade] = useState(false)
 
   useEffect(() => {
-    // show loader when path changes
     setVisible(true)
+    setFade(false)
 
-    const timeout = setTimeout(() => {
-      setVisible(false)
-    }, 2500) // how long the loader stays (ms)
+    const t1 = setTimeout(() => setFade(true), 900)         // start fade first
+    const t2 = setTimeout(() => setVisible(false), 1300)    // then hide
 
-    return () => clearTimeout(timeout)
+    return () => {
+      clearTimeout(t1)
+      clearTimeout(t2)
+    }
   }, [pathname])
 
   if (!visible) return null
 
   return (
-    <div className="loading-screen">
+    <div className={`loading-screen ${fade ? 'hide' : ''}`}>
       <div className="loading-hearts">
         <span className="loading-heart loading-heart-left">❤️</span>
         <span className="loading-heart loading-heart-right">❤️</span>

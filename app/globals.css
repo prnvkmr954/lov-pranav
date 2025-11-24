@@ -119,17 +119,23 @@ body.sidebar-collapsed .sidebar-toggle-fixed{
 .loading-screen {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 99999 !important;  /* BIGGER */
+  background: radial-gradient(circle at top, #ffe0ea 0, #fff4f8 45%, #fce5ee 100%);
+  backdrop-filter: blur(6px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 12px;
-
-  background: radial-gradient(circle at top, #ffe0ea 0, #fff4f8 45%, #fce5ee 100%);
-  backdrop-filter: blur(6px);
-  animation: loadingFadeIn 0.4s ease-out;
+  pointer-events: all; /* BLOCK interactions */
+  opacity: 1;
+  transition: opacity .4s ease-out;
 }
+.loading-screen.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
 
 .loading-hearts {
   position: relative;
@@ -183,6 +189,8 @@ body.sidebar-collapsed .sidebar-toggle-fixed{
   color: #6b4b4e;
   text-align: center;
 }
+
+
 
 /* subtle fade-in of whole overlay */
 @keyframes loadingFadeIn {
@@ -755,6 +763,24 @@ body.sidebar-collapsed .main-content {
   margin-top: 6px;
   font-size: 1.8rem;
   color: #19490d;
+}
+.envelope-title,
+.envelope-sub {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 100%;
+}
+.envelope-title {
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+.envelope-sub {
+  margin-bottom: 50px;
+  max-width: 650px;
+  line-height: 1.7;
 }
 
 
@@ -1392,12 +1418,13 @@ body.sidebar-collapsed .main-content {
 }
 
 /* Envelope Background - The actual envelope */
+/* Envelope Background - Green Theme */
 .envelope-bg {
   position: relative;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #f5e6d3 0%, #e8d5c4 100%);
-  border: 2px solid #d4c0a8;
+  background: linear-gradient(135deg, #b8e1c4 0%, #8dcfa8 50%, #64b488 100%);
+  border: 2px solid #5b9f78;
   border-radius: 6px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
   padding: 25px;
@@ -1408,6 +1435,7 @@ body.sidebar-collapsed .main-content {
   overflow: hidden;
 }
 
+
 .envelope-bg::before {
   content: '';
   position: absolute;
@@ -1415,7 +1443,7 @@ body.sidebar-collapsed .main-content {
   left: 0;
   right: 0;
   height: 50%;
-  background: linear-gradient(180deg, #e8d5c4 0%, transparent 100%);
+  background: linear-gradient(180deg, #9fd9b7 0%, transparent 100%);
   pointer-events: none;
 }
 
@@ -1429,6 +1457,7 @@ body.sidebar-collapsed .main-content {
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   border-bottom: 2px solid #c9b59f;
   pointer-events: none;
+   border-bottom: 2px solid #6fb48b;
 }
 
 /* Stamp */
@@ -1443,7 +1472,8 @@ body.sidebar-collapsed .main-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(45deg, rgba(177, 48, 59, 0.08), rgba(177, 48, 59, 0.03));
+  border: 3px dashed #327b53;
+  background: linear-gradient(45deg, rgba(102, 152, 114, 0.1), rgba(102,152,114,0.05));
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   z-index: 5;
 }
@@ -1463,9 +1493,50 @@ body.sidebar-collapsed .main-content {
 
 .stamp-icon {
   font-size: 42px;
-  color: var(--accent);
+ color: #327b53;
   font-weight: bold;
   line-height: 1;
+}
+/* ==== GREEN ENVELOPE OVERRIDE ==== */
+
+/* Main triangle body */
+.animated-mail .body {
+  border-color: transparent transparent #76c69a transparent !important;
+}
+
+/* Top flap */
+.animated-mail .top-fold {
+  border-color: #65b488 transparent transparent transparent !important;
+}
+
+/* Back rectangle */
+.animated-mail .back-fold {
+  background: #65b488 !important;
+}
+
+/* Left side triangle */
+.animated-mail .left-fold {
+  border-color: transparent transparent transparent #7fcea9 !important;
+}
+
+/* Letter border detail */
+.letter-border {
+  background: repeating-linear-gradient(
+    -45deg,
+    #6eba92,
+    #6eba92 8px,
+    transparent 8px,
+    transparent 18px
+  ) !important;
+}
+
+/* Hover heart/stamp accent */
+.stamp-icon {
+  color: #256b46 !important;
+}
+.envelope-stamp {
+  border-color: #2d8054 !important;
+  background: linear-gradient(45deg, rgba(60,140,96,0.08), rgba(60,140,96,0.03)) !important;
 }
 
 /* Postmark Circle */
@@ -1516,6 +1587,7 @@ body.sidebar-collapsed .main-content {
   margin: 0;
   font-style: italic;
 }
+
 
 /* PHOTO POPUP - Shows on hover */
 .photo-popup {
@@ -1598,6 +1670,82 @@ body.sidebar-collapsed .main-content {
 .envelope-wrapper:nth-child(4) { animation-delay: 0.4s; }
 .envelope-wrapper:nth-child(5) { animation-delay: 0.5s; }
 .envelope-wrapper:nth-child(6) { animation-delay: 0.6s; }
+
+
+
+/* ===== WAX SEAL ON ENVELOPE ===== */
+
+.letter-image {
+  position: relative; /* make sure seal positions correctly */
+}
+
+/* main seal circle */
+.wax-seal {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%) scale(1);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, #ffb3c7, #d3415a);
+  box-shadow: 0 10px 24px rgba(163, 40, 66, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  transition:
+    transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    opacity 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: waxBob 2.4s ease-in-out infinite;
+}
+
+/* slightly irregular edge to feel like wax */
+.wax-seal::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.wax-seal::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 38px;
+  height: 10px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(0,0,0,0.4), transparent 70%);
+  opacity: 0.5;
+}
+
+/* text inside seal */
+.wax-seal-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff7f7;
+}
+
+/* floating / bobbing animation */
+@keyframes waxBob {
+  0%   { transform: translateX(-50%) translateY(0) scale(1); }
+  50%  { transform: translateX(-50%) translateY(-3px) scale(1.02); }
+  100% { transform: translateX(-50%) translateY(0) scale(1); }
+}
+
+/* when envelope "opens" on hover, seal breaks and disappears */
+.letter-image:hover .wax-seal {
+  transform: translateX(-50%) translateY(24px) scale(0.5) rotate(-18deg);
+  opacity: 0;
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+}
+
 
 
 

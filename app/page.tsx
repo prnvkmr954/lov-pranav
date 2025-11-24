@@ -109,12 +109,6 @@ export default function Home() {
               <h3>Memory Map</h3>
               <p>Places where we created beautiful memories</p>
             </a>
-            
-            <a href="/letters" className="cta-card">
-              <div className="cta-icon">💌</div>
-              <h3>Love Letters</h3>
-              <p>Words from our hearts to each other</p>
-            </a>
           </div>
         </div>
       </section>

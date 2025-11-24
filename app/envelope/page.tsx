@@ -94,31 +94,37 @@ export default function EnvelopePage() {
               className="letter-image"
               onClick={() => handleOpen(card.image)}
             >
-              <div className="animated-mail">
-                <div className="back-fold"></div>
+            <div className="animated-mail">
+  <div className="back-fold"></div>
 
-                <div className="letter">
-                  <div className="letter-border"></div>
+  <div className="letter">
+    <div className="letter-border"></div>
 
-                  <div className="letter-photo-wrapper">
-                    <img
-                      src={card.image}
-                      alt={card.title}
-                      className="letter-photo"
-                    />
-                  </div>
+    <div className="letter-photo-wrapper">
+      <img
+        src={card.image}
+        alt={card.title}
+        className="letter-photo"
+      />
+    </div>
 
-                  <div className="letter-meta-block">
-                    <div className="letter-title-text">{card.title}</div>
-                    <div className="letter-date-text">{card.date}</div>
-                    <div className="letter-sender-text">{card.sender}</div>
-                  </div>
-                </div>
+    <div className="letter-meta-block">
+      <div className="letter-title-text">{card.title}</div>
+      <div className="letter-date-text">{card.date}</div>
+      <div className="letter-sender-text">{card.sender}</div>
+    </div>
+  </div>
 
-                <div className="top-fold"></div>
-                <div className="body"></div>
-                <div className="left-fold"></div>
-              </div>
+  <div className="top-fold"></div>
+  <div className="body"></div>
+  <div className="left-fold"></div>
+
+  {/* Wax seal on flap */}
+  <div className="wax-seal">
+    <span className="wax-seal-text">L &amp; P</span>
+  </div>
+</div>
+
 
               <div className="shadow"></div>
             </div>
