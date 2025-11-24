@@ -4,24 +4,59 @@ import Lightbox from './Lightbox'
 
 // Multiple images per location - like pages in a notebook
 const NOTEBOOKS = [
-  { 
-    title: 'Udaipur',
-    coverColor: '#ffb5c5',
+   { 
+    title: 'Jalandhar',
+    coverColor: '#ffc0d3',
     pages: [
-      '/assets/udaipur.jpg',
-      '/assets/udaipur-3.jpg',
-      '/assets/udaipur.jpg',  // You can add more unique images here
-      '/assets/udaipur-3.jpg',
+      '/assets/Jalandhar-1.jpg',
+      '/assets/Jalandhar-2.jpg',  // Add more Jalandhar images
+      '/assets/Jalandhar-3.jpg',
+      '/assets/Jalandhar-4.jpg',
+      '/assets/Jalandhar-5.jpg',
+      '/assets/Jalandhar-6.jpg'
     ]
   },
   { 
-    title: 'Zirakpur',
+    title: 'Mohali',
     coverColor: '#ffc0d3',
     pages: [
-      '/assets/zirakpur.jpg',
-      '/assets/zirakpur.jpg',  // Add more Zirakpur images
-      '/assets/zirakpur.jpg',
-      '/assets/zirakpur.jpg',
+      '/assets/mohali.jpg',
+      '/assets/mohali-1.jpg',  // Add more Mohali images
+      '/assets/mohali-2.jpg',
+      '/assets/mohali-3.jpg',
+      '/assets/mohali-4.jpg',
+      '/assets/mohali-5.jpg'
+    ]
+  },
+  { 
+    title: 'Kasauli',
+    coverColor: '#ffc0d3',
+    pages: [
+      '/assets/kasauli.jpg',
+      '/assets/kasauli-1.jpg',
+      '/assets/kasauli-2.jpg',  // Add more Kasauli images
+      '/assets/kasauli-3.jpg'
+    ]
+  },
+  { 
+    title: 'Shimla',
+    coverColor: '#ffc0d3',
+    pages: [
+      '/assets/shimla.jpg',
+      '/assets/shimla-1.jpg',  // Add more Shimla images
+      '/assets/shimla-2.jpg',
+      '/assets/shimla-3.jpg',
+    ]
+  },
+  { 
+    title: 'Manali',
+    coverColor: '#ffc0d3',
+    pages: [
+      '/assets/manali.jpg',
+      '/assets/manali-1.jpg',  // Add more Manali images
+      '/assets/manali-2.jpg',
+      '/assets/manali-3.jpg',
+      '/assets/manali-4.jpg'
     ]
   },
   { 
@@ -29,19 +64,21 @@ const NOTEBOOKS = [
     coverColor: '#ffcce1',
     pages: [
       '/assets/ganga-maa.jpeg',
-      '/assets/ganga-maa.jpeg',  // Add more Rishikesh images
-      '/assets/ganga-maa.jpeg',
-      '/assets/ganga-maa.jpeg',
+      '/assets/rishikesh.jpg',  // Add more Rishikesh images
+      '/assets/rishikesh-1.jpg',
     ]
   },
   { 
     title: 'Udaipur – Aurika',
     coverColor: '#ffd8ef',
     pages: [
-      '/assets/udaipur-3.jpg',
       '/assets/udaipur.jpg',
+      '/assets/udaipur-1.jpg',
+      '/assets/udaipur-2.jpg',
       '/assets/udaipur-3.jpg',
-      '/assets/udaipur.jpg',
+      '/assets/udaipur-4.jpg',
+      '/assets/udaipur-5.jpg',
+      '/assets/udaipur-6.jpg',
     ]
   },
 ]

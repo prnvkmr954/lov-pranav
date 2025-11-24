@@ -76,7 +76,6 @@ export default function Sidebar(): JSX.Element {
           <NavLink href="/gallery">📷 Gallery</NavLink>
           <NavLink href="/map">📍 Map</NavLink>
           <NavLink href="/envelope">📬 Envelope</NavLink>
-          <NavLink href="/letters">💌 Love Letters</NavLink>
         </nav>
       </aside>
     </>
