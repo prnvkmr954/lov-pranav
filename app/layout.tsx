@@ -10,11 +10,11 @@ export const metadata = {
   openGraph: {
     title: 'Lov & PK — Heartfelt Trail 💖',
     description: 'A romantic journey through envelopes, memories, and love.',
-    url: 'https://loveleenpranav.com/',
+    url: 'https://loveleenpranav.com/assets/about-photo.jpg',
     siteName: 'Lov & PK — Heartfelt Trail',
     images: [
       {
-        url: '/about-photo.jpg',
+        url: 'about-photo.jpg',
         width: 1200,
         height: 630,
         alt: 'Lov & PK — Our Love Story'
