@@ -3,6 +3,7 @@ import GlobalLoader from '@/components/GlobalLoader'
 import './globals.css'
 import Sidebar from '@/components/Sidebar'
 import type { ReactNode } from 'react'
+import SpecialDayEngine from '@/components/SpecialDayEngine';
 
 export const metadata = {
   title: 'Lov & PK — Heartfelt Trail 💖',
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         {/* Sidebar plus content */}
         <GlobalLoader />
+        <SpecialDayEngine />
         <Sidebar />
         <main className="main-content">
           
