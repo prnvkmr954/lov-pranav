@@ -15,7 +15,7 @@ export const SPECIAL_DATES: SpecialDate[] = [
   {
     id: 'anniversary',
     name: 'Anniversary',
-    date: '2016-11-29', // <-- EDIT: set your anniversary date (YYYY-MM-DD)
+    date: '2016-12-17', // <-- EDIT: set your anniversary date (YYYY-MM-DD)
     images: [
       '/special/anniversary/1.jpg',
       '/special/anniversary/2.jpg',
@@ -32,7 +32,7 @@ export const SPECIAL_DATES: SpecialDate[] = [
     style: 'cinematic',
     showPetals: true,
     showFireworks: true,
-secretMessages: [
+    secretMessages: [
   "Another year with you feels like a thousand little joys stitched into one forever; I love you more each day. Happy Anniversary, Lov ❤️",
   "From college lab hellos to cozy mornings — you are my favourite story. Happy anniversary, always. Happy Anniversary, Lov ❤️",
   "You made ordinary days sing. Thank you for the love, the patience, and the small, perfect moments. Happy Anniversary, Lov ❤️",
