@@ -63,7 +63,7 @@ const AudioVisualizer = ({ isPlaying, audioContext, analyser }: {
   analyser: AnalyserNode | null 
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const animationRef = useRef<number>()
+  const animationRef = useRef<number>(0)
 
   useEffect(() => {
     if (!canvasRef.current || !analyser || !isPlaying) {
